@@ -29,6 +29,10 @@ class ViewParticipant{
             //item unique
             if(sizeof($this->model[0])===1){
                 $content = $this->htmlUnItem($this->model[0]);
+                //on ajoute le formulaire si l'item n'est pas réservé
+                if($this->model[0]->reserve == 0){
+                    $content = $content . $this->formulaireDeReservationDunItem();
+                }
             }else{
                 //liste d'items
                 foreach($this->model[0] as $l){
@@ -60,20 +64,32 @@ class ViewParticipant{
     }
 
     private function htmlUnItem(\mywishlist\models\Item $item): string{
+        //gestion de la réservation
+        $reserve = "Non réservé";
+        if($item->reserve != 0){
+            $reserve = "Réservé (liste " . $item->liste_id . ")";
+        }
+        //gestion de l'affichage
         $html = <<<END
             <section class="content">
-                <h3>Item {$item->id} : {$item->nom}</h3>
+                <h3><a href="/mywishlist/app/items/{$item->id}">Item {$item->id} : {$item->nom}</a></h3>
                 <p>Description : {$item->descr}</p>
+                <p>Prix : {$item->tarif}€</p>
+                <img src="/mywishlist/web/img/{$item->img}" height=100>
+                <p>État : {$reserve}</p>
             </section>
         END;
+        //retour de la fonction
         return $html;
     }
 
     private function htmlUneListe(\mywishlist\models\Liste $liste): string{
         $html = <<<END
             <section class="content">
-                <h3>Liste {$liste->no} : {$liste->titre}</h3>
-                <p>Description : {$liste->description}</p>
+                <a href="/mywishlist/app/listes/{$liste->no}">
+                    <h3>Liste {$liste->no} : {$liste->titre}</h3>
+                    <p>Description : {$liste->description}</p>
+                </a>
             </section>
         END;
         return $html;
@@ -99,4 +115,21 @@ class ViewParticipant{
         END;
         return $html;
     }
+
+    private function formulaireDeReservationDunItem(): string{
+        $html = <<<END
+            <h3>Formulaire de réservation :</h3>
+            <form id="" method="get" action="">
+                <label>Nom du participant : </label>
+                <input>
+                <br>
+                <label>Message destiné au créateur : </label>
+                <input>
+                <br>
+                <button>Valider</button>
+            </form>
+        END;
+        return $html;
+    }
+
 }

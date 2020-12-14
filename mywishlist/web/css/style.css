@@ -7,19 +7,31 @@
 
 .topnav a {
     float: left;
-    color: #f2f2f2;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
 }
 
-.topnav a:hover {
+.topnav a:hover, .content a:hover {
     background-color: #ddd;
-    color: black;
+    color: #333;
 }
 
 .topnav a.active {
     background-color: blue;
     color: white;
+}
+
+/*
+* les listes sont cliquables
+*/
+.content a{
+    display:block;
+    width:100%;
+    height:100%;
+    text-decoration: none;
+    color: white;
+    background-color: #333;
 }
