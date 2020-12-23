@@ -2,6 +2,8 @@
 
 namespace mywishlist\view;
 
+use \mywishlist\models\Liste as Liste;
+
 class ViewParticipant{
 
     private $model;
@@ -43,6 +45,13 @@ class ViewParticipant{
 
     public function renderItem(array $vars){
         $content = $this->htmlUnItem($this->model[0], $vars);
+
+        //on recupère la liste qui contient l'item actuel
+        $numListe = $this->model[0]->liste_id;
+        //on récupère le token associé
+        $tokenListe = Liste::query()->where('no', '=', $numListe)->firstOrFail()->token;
+        //===> cela nous permet de gérer le bouton retour à la liste
+
         //partie commune de la page
         $html = <<<END
         <!DOCTYPE html>
@@ -55,7 +64,7 @@ class ViewParticipant{
             <body>
                 <h1>Application Wishlist</h1>
                 <h2><u>Participants</u></h2>
-                <a href='.' class='bouton_retour'>Retour à la liste</a>
+                <a href='{$vars['basepath']}/liste?token={$tokenListe}' class='bouton_retour'>Retour à la liste</a>
                 $content
                 <h2>Fin de la page</h2>
             </body>
@@ -92,7 +101,7 @@ class ViewParticipant{
         $html = <<<END
             <h2><u>La liste</u></h2>
             <section class="content">
-                <!--<h3><u>Numéro référence de la liste :</u> {$liste->no}</h3>-->
+                <h3><u>Numéro référence de la liste :</u> {$liste->no}</h3>
                 <h3><u>Numéro de référence du créateur :</u> {$liste->user_id}</h3>
                 <h3><u>Titre de la liste :</u> {$liste->titre}</h3>
                 <h3><u>Description :</u> {$liste->description}</h3>
