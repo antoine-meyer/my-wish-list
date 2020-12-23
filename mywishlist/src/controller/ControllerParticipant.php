@@ -16,6 +16,51 @@ class ControllerParticipant {
         $this->c = $c;
     }
 
+    public function getListeDestinataire($rq, $rs, $args){
+        try{
+            //on configure
+            $htmlvars = [
+                'basepath'=>$rq->getUri()->getBasePath()
+            ];
+            //on recupère le token qui nous interesse
+            $t = $rq->getQueryParam('token');
+            
+            //on recupere toutes les listes
+            $liste = Liste::all();
+            //on recupere tous les items
+            $items = Item::all();
+
+            //si on a pas de token on met la page erreur
+            if($t===NULL){
+                $elem = -1;
+                $v = new ViewParticipant([$liste, $elem, $items]);
+                $rs->getBody()->write($v->render($htmlvars));
+                return $rs;
+            }
+
+            //on regarde si une liste a ce token
+            $trouve = false;
+            $nbr_liste = 0;
+            //indice dans la liste ou -1
+            $elem = -1;
+            //on parcours les listes
+            while($trouve === false && $nbr_liste <= count($liste)){
+                if($liste[$nbr_liste]->token === $t){
+                    $trouve = true;
+                    $elem = $nbr_liste;
+                }
+                $nbr_liste = $nbr_liste + 1;
+            }
+            //
+            $v = new ViewParticipant([$liste, $elem, $items]);
+            $rs->getBody()->write($v->render($htmlvars));
+            return $rs;
+        }catch(ModelNotFoundException $e){
+            $rs->getBody()->write("exception");
+            return $rs;
+        }
+    }
+
     public function getItem(Request $rq, Response $rs, array $args):Response{
         try{
             $item = Item::query()->where('id', '=', $args['id'])->firstOrFail();
@@ -23,58 +68,12 @@ class ControllerParticipant {
                 'basepath'=>$rq->getUri()->getBasePath()
             ];
             $v = new ViewParticipant([$item]);
-            $rs->getBody()->write($v->render($htmlvars));
+            $rs->getBody()->write($v->renderItem($htmlvars));
             return $rs;
         }catch(ModelNotFoundException $e){
             $rs->getBody()->write("Item {$item->id} non trouvé");
             return $rs;
         }
     }
-
-    public function getItems(Request $rq, Response $rs, array $args):Response{
-        try{
-            $item = Item::all();
-            $htmlvars = [
-                'basepath'=>$rq->getUri()->getBasePath()
-            ];
-            $v = new ViewParticipant([$item]);
-            $rs->getBody()->write($v->render($htmlvars));
-            return $rs;
-        }catch(ModelNotFoundException $e){
-            $rs->getBody()->write("exception");
-            return $rs;
-        }
-    }
-
-    public function getListe(Request $rq, Response $rs, array $args):Response{
-        try{
-            $liste = Liste::query()->where('no', '=', $args['id'])->firstOrFail();
-            $item = Item::all();
-            $htmlvars = [
-                'basepath'=>$rq->getUri()->getBasePath()
-            ];
-            $v = new ViewParticipant([$liste, $item]);
-            $rs->getBody()->write($v->render($htmlvars));
-            return $rs;
-        }catch(ModelNotFoundException $e){
-            $rs->getBody()->write("Item {$liste->no} non trouvé");
-            return $rs;
-        }
-    }
-
-    public function getListes($rq, $rs, $args){
-        try{
-            $liste = Liste::all();
-            $htmlvars = [
-                'basepath'=>$rq->getUri()->getBasePath()
-            ];
-            $v = new ViewParticipant([$liste]);
-            $rs->getBody()->write($v->render($htmlvars));
-            return $rs;
-        }catch(ModelNotFoundException $e){
-            $rs->getBody()->write("exception");
-            return $rs;
-        }
-    }
-
+    
 }

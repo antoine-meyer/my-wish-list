@@ -25,24 +25,25 @@ $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     </head>
     <body>
         <h1>Application Wishlist</h1>
-        <h2><u>Créateurs</u></h2>
-        <form method='post'>
-            <div class=''>
-                <div class=''>
-                    <input class='cham' title='E-mail ou identifiant' maxlength='320' type='text' placeholder='E-mail ou identifiant' autocorrect='off' spellcheck='false'>
-                </div>
-                <div class=''>
-                    <input class='cham' title='Mdp' maxlength='320' type='password' placeholder='Mot de passe'>
-                </div>
-            </div>
-            <div class=''>    
-                <button class='sub' type='submit'>Se connecter</button>
-            </div>
-        </form>
+        <h2><u>Participants</u></h2>
+        <p>Bienvenue sur l'application wishlist</p>
+        <p>Vous ne voyez rien ici car vous netes pas sur une bonne url de liste de souhaits</p>
+        <p>Verifiez dans la barre en haut si vous avez la bonne url</p>
+        <p>l'url devrait ressembler à : /mywishlist/participants/liste...</p>
     </body>
     </html>
     ");
     return $rs;
+});
+
+$app->get('/liste', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerParticipant($this);
+    return $c->getListeDestinataire($rq, $rs, $args);
+});
+
+$app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerParticipant($this);
+    return $c->getItem($rq, $rs, $args);
 });
 
 $app->run();

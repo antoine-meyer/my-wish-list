@@ -11,36 +11,17 @@ class ViewParticipant{
     }
 
     public function render(array $vars){
-        //LISTES
-        if(get_class($this->model[0][0])==="mywishlist\models\Liste" || get_class($this->model[0])==="mywishlist\models\Liste"){
-            //liste unique et ses items
-            if(sizeof($this->model[0])===1){
-                $content = $this->htmlUneListeEtItems($this->model[0]);
-            }else{
-                //liste de listes
-                foreach($this->model[0] as $l){
-                    $content = $content .  $this->htmlUneListe($l);
-                    $stateListes = "active";
-                }
-            }
+        //on recupere l'indice
+        $indice = $this->model[1];
+        //si l'indice est -1 alors on a pas une bonne URL
+        if($indice !== -1){
+            $content = $this->htmlUneListeEtItems($this->model[0][$indice], $vars);
+        }else{
+            $content = <<<END
+                <h3><u>ATTENTION :</u> Pas de liste de souhaits avec cette URL !</h3>
+            END;
         }
-        //ITEMS
-        else{
-            //item unique
-            if(sizeof($this->model[0])===1){
-                $content = $this->htmlUnItem($this->model[0]);
-                //on ajoute le formulaire si l'item n'est pas réservé
-                if($this->model[0]->reserve == 0){
-                    $content = $content . $this->formulaireDeReservationDunItem();
-                }
-            }else{
-                //liste d'items
-                foreach($this->model[0] as $l){
-                    $content = $content .  $this->htmlUnItem($l);
-                    $stateItems = "active";
-                }
-            }
-        }
+        //partie commune de la page
         $html = <<<END
         <!DOCTYPE html>
         <html lang="fr">
@@ -51,63 +32,80 @@ class ViewParticipant{
             </head>
             <body>
                 <h1>Application Wishlist</h1>
-                <div class="topnav">
-                    <a href="{$vars['basepath']}/../app/">Home</a>
-                    <a class="$stateListes" href="{$vars['basepath']}/listes">Listes</a>
-                    <a class="$stateItems" href="{$vars['basepath']}/items">Items</a>
-                </div>
+                <h2><u>Participants</u></h2>
                 $content
+                <h2>Fin de la page</h2>
             </body>
         </html>
         END;
         return $html;
     }
 
-    private function htmlUnItem(\mywishlist\models\Item $item): string{
+    public function renderItem(array $vars){
+        $content = $this->htmlUnItem($this->model[0], $vars);
+        //partie commune de la page
+        $html = <<<END
+        <!DOCTYPE html>
+        <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Application Wishlist</title>
+                <link rel="stylesheet" href="{$vars['basepath']}/../web/css/style.css">
+            </head>
+            <body>
+                <h1>Application Wishlist</h1>
+                <h2><u>Participants</u></h2>
+                <a href='.' class='bouton_retour'>Retour à la liste</a>
+                $content
+                <h2>Fin de la page</h2>
+            </body>
+        </html>
+        END;
+        return $html;
+    }
+
+    private function htmlUnItem(\mywishlist\models\Item $item, array $v): string{
         //gestion de la réservation
         $reserve = "Non réservé";
         if($item->reserve != 0){
-            $reserve = "Réservé (liste " . $item->liste_id . ")";
+            $reserve = "Réservé";
         }
         //gestion de l'affichage
         $html = <<<END
-            <section class="content">
-                <h3><a href="/mywishlist/app/items/{$item->id}">Item {$item->id} : {$item->nom}</a></h3>
-                <p>Description : {$item->descr}</p>
-                <p>Prix : {$item->tarif}€</p>
+        <a href="{$v['basepath']}/items/{$item->id}">
+            <section class="contentItem">
+                <h3><u>Numéro de l'item :</u> {$item->id}</h3>
+                <h3><u>Nom de l'item :</u> {$item->nom}</h3>
+                <h3><u>Description :</u> {$item->descr}</h3>
                 <img src="/mywishlist/web/img/{$item->img}" height=100>
-                <p>État : {$reserve}</p>
+                <h3><u>Prix :</u> {$item->tarif}€</h3>
+                <h3><u>État :</u> {$reserve}</h3>
             </section>
+        </a>
+        <br>
         END;
         //retour de la fonction
         return $html;
     }
 
-    private function htmlUneListe(\mywishlist\models\Liste $liste): string{
+    private function htmlUneListeEtItems(\mywishlist\models\Liste $liste, array $v): string{
         $html = <<<END
+            <h2><u>La liste</u></h2>
             <section class="content">
-                <a href="/mywishlist/app/listes/{$liste->no}">
-                    <h3>Liste {$liste->no} : {$liste->titre}</h3>
-                    <p>Description : {$liste->description}</p>
-                </a>
-            </section>
-        END;
-        return $html;
-    }
-
-    private function htmlUneListeEtItems(\mywishlist\models\Liste $liste): string{
-        $html = <<<END
-            <section class="content">
-                <h3>Liste {$liste->no} : {$liste->titre}</h3>
-                <p>Description : {$liste->description}</p>
-                <h3>Les items de cette liste sont : </h3>
+                <!--<h3><u>Numéro référence de la liste :</u> {$liste->no}</h3>-->
+                <h3><u>Numéro de référence du créateur :</u> {$liste->user_id}</h3>
+                <h3><u>Titre de la liste :</u> {$liste->titre}</h3>
+                <h3><u>Description :</u> {$liste->description}</h3>
+                <h3><u>Date d'expiration :</u> {$liste->expiration}</h3>
+                <h2><u>Les items de la liste :</u></h2>
         END;  
-        //OPTIMISATION A REVOIR JE PENSE ICI !!!!
+        //on recupere les items
+        $items = $this->model[2];
         //on check tous les items
-        foreach($this->model[1] as $l){
+        foreach($items as $i){
             //on affiche que ceux qui font parti de la liste demandée
-            if($l->liste_id === $liste->no){
-                $html = $html . $this->htmlUnItem($l);
+            if($i->liste_id === $liste->no){
+                $html = $html . $this->htmlUnItem($i, $v);
             }
         }
         $html = $html . <<<END
@@ -115,7 +113,7 @@ class ViewParticipant{
         END;
         return $html;
     }
-
+    /*
     private function formulaireDeReservationDunItem(): string{
         $html = <<<END
             <h3>Formulaire de réservation :</h3>
@@ -130,6 +128,6 @@ class ViewParticipant{
             </form>
         END;
         return $html;
-    }
+    }*/
 
 }
