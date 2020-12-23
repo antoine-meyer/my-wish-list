@@ -81,13 +81,32 @@ class ViewParticipant{
         }
         //gestion de l'affichage
         $html = <<<END
+        <section class="contentItemAlone">
+            <h3><u>Numéro de l'item :</u> {$item->id}</h3>
+            <h3><u>Nom de l'item :</u> {$item->nom}</h3>
+            <h3><u>Description :</u> {$item->descr}</h3>
+            <img src="/mywishlist/web/img/{$item->img}" height=100>
+            <h3><u>Prix :</u> {$item->tarif}€</h3>
+            <h3><u>État :</u> {$reserve}</h3>
+        </section>
+        <br>
+        END;
+        //retour de la fonction
+        return $html;
+    }
+
+    private function htmlUnItemDansListe(\mywishlist\models\Item $item, array $v): string{
+        //gestion de la réservation
+        $reserve = "Non réservé";
+        if($item->reserve != 0){
+            $reserve = "Réservé";
+        }
+        //gestion de l'affichage
+        $html = <<<END
         <a href="{$v['basepath']}/items/{$item->id}">
             <section class="contentItem">
-                <h3><u>Numéro de l'item :</u> {$item->id}</h3>
                 <h3><u>Nom de l'item :</u> {$item->nom}</h3>
-                <h3><u>Description :</u> {$item->descr}</h3>
                 <img src="/mywishlist/web/img/{$item->img}" height=100>
-                <h3><u>Prix :</u> {$item->tarif}€</h3>
                 <h3><u>État :</u> {$reserve}</h3>
             </section>
         </a>
@@ -114,7 +133,7 @@ class ViewParticipant{
         foreach($items as $i){
             //on affiche que ceux qui font parti de la liste demandée
             if($i->liste_id === $liste->no){
-                $html = $html . $this->htmlUnItem($i, $v);
+                $html = $html . $this->htmlUnItemDansListe($i, $v);
             }
         }
         $html = $html . <<<END
@@ -130,7 +149,10 @@ class ViewParticipant{
                 <label>Nom du participant : </label>
                 <input>
                 <br>
-                <label>Message destiné au créateur : </label>
+                <label>Message destiné au destinataire du cadeau : </label>
+                <input>
+                <br>
+                <label>Message ou commentaire destiné à l'ensemble des utilisateurs de la liste : </label>
                 <input>
                 <br>
                 <button>Valider</button>
