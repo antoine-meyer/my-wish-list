@@ -18,10 +18,6 @@ class ViewParticipant{
         //si l'indice est -1 alors on a pas une bonne URL
         if($indice !== -1){
             $content = $this->htmlUneListeEtItems($this->model[0][$indice], $vars);
-        }else{
-            $content = <<<END
-                <h3><u>ATTENTION :</u> Pas de liste de souhaits avec cette URL !</h3>
-            END;
         }
         //partie commune de la page
         $html = <<<END
@@ -36,6 +32,26 @@ class ViewParticipant{
                 <h1>Application Wishlist</h1>
                 <h2><u>Participants</u></h2>
                 $content
+                <h2>Fin de la page</h2>
+            </body>
+        </html>
+        END;
+        return $html;
+    }
+
+    public function renderPageErreur(array $vars){
+        $html = <<<END
+        <!DOCTYPE html>
+        <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Application Wishlist</title>
+                <link rel="stylesheet" href="{$vars['basepath']}/../web/css/style.css">
+            </head>
+            <body>
+                <h1>Application Wishlist</h1>
+                <h2><u>Participants</u></h2>
+                <h3><u>ATTENTION :</u> Pas de liste de souhaits avec cette URL !</h3>
                 <h2>Fin de la page</h2>
             </body>
         </html>
@@ -101,9 +117,15 @@ class ViewParticipant{
         if($item->reserve != 0){
             $reserve = "Réservé";
         }
+
+        //on recupère la liste qui contient l'item actuel
+        $numListe = $item->liste_id;
+        //on récupère le token associé
+        $tokenListe = Liste::query()->where('no', '=', $numListe)->firstOrFail()->token;
+
         //gestion de l'affichage
         $html = <<<END
-        <a href="{$v['basepath']}/items/{$item->id}">
+        <a href="{$v['basepath']}/liste?token={$tokenListe}&items={$item->id}">
             <section class="contentItem">
                 <h3><u>Nom de l'item :</u> {$item->nom}</h3>
                 <img src="/mywishlist/web/img/{$item->img}" height=100>
