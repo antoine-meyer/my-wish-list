@@ -76,7 +76,8 @@ class ControllerParticipant {
                     }else{
                         //on regarde si l'item qu'on a es dans la liste
                         $item = Item::query()->where('id', '=', $i)->firstOrFail();
-                        //on regarde si l'item passé en parametre a pour liste la liste qui a pour token le token en parametre
+                        //on regarde si l'item passé en parametre a pour liste
+                        //la liste qui a pour token le token en parametre
                         if($liste_trouve === $item->liste_id){
                             $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
                             $v = new ViewParticipant([$item]);
