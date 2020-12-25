@@ -91,9 +91,10 @@ class ViewParticipant{
 
     private function htmlUnItem(\mywishlist\models\Item $item, array $v): string{
         //gestion de la réservation
-        $reserve = "Non réservé";
         if($item->reserve != 0){
-            $reserve = "Réservé";
+            $reserve = "Réservé par ".$item->participant;
+        }else{
+            $reserve = "Non réservé";
         }
         //gestion de l'affichage
         $html = <<<END
@@ -107,6 +108,10 @@ class ViewParticipant{
         </section>
         <br>
         END;
+        //
+        if($item->reserve == 0){
+            $html = $html . $this->formulaireDeReservationDunItem();
+        }   
         //retour de la fonction
         return $html;
     }
@@ -147,8 +152,28 @@ class ViewParticipant{
                 <h3><u>Titre de la liste :</u> {$liste->titre}</h3>
                 <h3><u>Description :</u> {$liste->description}</h3>
                 <h3><u>Date d'expiration :</u> {$liste->expiration}</h3>
-                <h2><u>Les items de la liste :</u></h2>
-        END;  
+                <h2><u>Associé un message à cette liste :</u></h2>
+            </section>
+        END;
+        //formulaire pour laisser un message sur la liste
+        $html = $html . $this->formulaireMessageSurUneListe();  
+        //la liste des messages associés à la liste
+        $html = $html . <<<END
+            <h2><u>Les messages de la liste :</u></h2>
+            <section class="contentItemAlone">
+                <p>Ecrit par <b>XXX</b> : Message1<p>
+            </section>
+            <section class="contentItemAlone">
+                <p>Ecrit par <b>Atoine</b> : Message1</p>
+            </section>
+            <section class="contentItemAlone">
+                <p>Message1</p>
+            </section>
+        END;
+        //
+        $html = $html . <<<END
+            <h2><u>Les items de la liste :</u></h2>
+        END;
         //on recupere les items
         $items = $this->model[2];
         //on check tous les items
@@ -158,29 +183,49 @@ class ViewParticipant{
                 $html = $html . $this->htmlUnItemDansListe($i, $v);
             }
         }
-        $html = $html . <<<END
-            </section>
-        END;
         return $html;
     }
-    /*
+    
     private function formulaireDeReservationDunItem(): string{
-        $html = <<<END
-            <h3>Formulaire de réservation :</h3>
-            <form id="" method="get" action="">
-                <label>Nom du participant : </label>
-                <input>
-                <br>
-                <label>Message destiné au destinataire du cadeau : </label>
-                <input>
-                <br>
-                <label>Message ou commentaire destiné à l'ensemble des utilisateurs de la liste : </label>
-                <input>
-                <br>
-                <button>Valider</button>
-            </form>
+        $ht = <<<END
+            <section class="contentItemAlone">
+                <h3><u>Formulaire de réservation :</u></h3>
+                <form id="" method="get" action="">
+                    <label>Nom du participant : </label>
+                    <br>
+                    <br>
+                    <input>
+                    <br>
+                    <br>
+                    <label>Message destiné au destinataire du cadeau : </label>
+                    <br>
+                    <br>
+                    <input>
+                    <br>
+                    <br>
+                    <button>Valider</button>
+                </form>
+            </section>
         END;
-        return $html;
-    }*/
+        return $ht;
+    }
+
+    private function formulaireMessageSurUneListe(): string{
+        $ht = <<<END
+            <section class="contentItemAlone">
+                <h3><u>Formulaire :</u></h3>
+                <form id="" method="get" action="">
+                    <label>Ajouté un message ou un commentaire à la liste : </label>
+                    <br>
+                    <br>
+                    <input>
+                    <br>
+                    <br>
+                    <button>Valider</button>
+                </form>
+            </section>
+        END;
+        return $ht;
+    }
 
 }

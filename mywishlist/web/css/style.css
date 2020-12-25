@@ -13,12 +13,17 @@ h1, h2 {
     text-align: center;
 }
 /*
-le formulaire est centrée + 400 de largeur
+le formulaire
 */
-form{
-    width: 360px;
+form{}
+/*
+formulaire d'authentification de la page createur
+*/
+.formuCrea{
+    width: 500px;
     margin: 0 auto;
 }
+
 /*
 champs a remplir
 */
@@ -45,6 +50,7 @@ couleurs des items
 */
 .contentItem, .contentItemAlone{
     margin: 50px;
+    margin-bottom: 5px;
     padding: 10px;
     background-color: #222;
 }

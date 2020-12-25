@@ -26,7 +26,7 @@ $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     <body>
         <h1>Application Wishlist</h1>
         <h2><u>Créateurs</u></h2>
-        <form method='post'>
+        <form method='post' class='formuCrea'>
             <div class=''>
                 <div class=''>
                     <input class='cham' title='E-mail ou identifiant' maxlength='320' type='text' placeholder='E-mail ou identifiant' autocorrect='off' spellcheck='false'>
