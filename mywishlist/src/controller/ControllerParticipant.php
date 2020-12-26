@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * contrôleur pour le projet de visualisation ou destinataires de liste de souhaits
+ */
+
 namespace mywishlist\controller;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;

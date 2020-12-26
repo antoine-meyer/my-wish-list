@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * modèle qui représente la table LISTE de la base de données
+ */
+
 namespace mywishlist\models;
 
 use Illuminate\Database\Eloquent\Model;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * vue qui affiche une erreur
+ */
+
 namespace mywishlist\view;
 
 class ViewErreur{
@@ -21,8 +25,9 @@ class ViewErreur{
             </head>
             <body>
                 <h1>Application Wishlist</h1>
-                <h2><u>Participants</u></h2>
+                <h2><u>Participants & Créateurs</u></h2>
                 <h3><u>ATTENTION :</u> Pas de liste de souhaits avec cette URL !</h3>
+                <h3><u>ATTENTION :</u> Pas de créateurs pour cette URL !</h3>
                 <h2>Fin de la page</h2>
             </body>
         </html>

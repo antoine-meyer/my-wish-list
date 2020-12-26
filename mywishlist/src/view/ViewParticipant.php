@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * vue qui gère la partie participant
+ */
+
 namespace mywishlist\view;
 
 use \mywishlist\models\Liste as Liste;
