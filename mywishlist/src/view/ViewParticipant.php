@@ -39,6 +39,7 @@ class ViewParticipant{
         return $html;
     }
 
+    /*
     public function renderPageErreur(array $vars){
         $html = <<<END
         <!DOCTYPE html>
@@ -58,6 +59,7 @@ class ViewParticipant{
         END;
         return $html;
     }
+    */
 
     public function renderItem(array $vars){
         $content = $this->htmlUnItem($this->model[0], $vars);

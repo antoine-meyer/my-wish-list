@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \mywishlist\models\Item as Item;
 use \mywishlist\models\Liste as Liste;
 use \mywishlist\view\ViewParticipant as ViewParticipant;
+use \mywishlist\view\ViewErreur as ViewErreur;
 
 class ControllerParticipant {
 
@@ -48,7 +49,9 @@ class ControllerParticipant {
                         }
                         $v = new ViewParticipant([$liste, $elem, $items]);
                         if($elem === -1){
-                            $rs->getBody()->write($v->renderPageErreur($htmlvars));
+                            $v = new ViewErreur(NULL); 
+                            $rs->getBody()->write($v->render($htmlvars));
+                            //$rs->getBody()->write($v->renderPageErreur($htmlvars));
                         }else{
                             $rs->getBody()->write($v->render($htmlvars));
                         }
@@ -103,8 +106,8 @@ class ControllerParticipant {
 
     public function affiche_page_erreur($rq, $rs, $args){
         $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
-        $v = new ViewParticipant(NULL);
-        $rs->getBody()->write($v->renderPageErreur($htmlvars));
+        $v = new ViewErreur(NULL); 
+        $rs->getBody()->write($v->render($htmlvars));
         return $rs;
     }
 
