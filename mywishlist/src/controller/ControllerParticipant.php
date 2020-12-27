@@ -105,4 +105,23 @@ class ControllerParticipant {
         }
     }
 
+    public function getFormulaire($rq, $rs, $args){
+        $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
+        //$v = new ViewErreur(NULL); 
+        $rs->getBody()->write("<p>OUI ALLEZ DODO</p>");
+
+        //on peut normalement recupere les informations du post ici
+        $nouveauCommentaireSurLaListe = $rq->getParsedBody();
+        //$query = filter_var($data['query'] ,FILTER_SANITIZE_STRING);
+        print($nouveauCommentaireSurLaListe['contenuCommentaireListe']);
+        
+        //ON PEUT UTILISER DES VUES 
+                    //ICI
+        
+        
+        //SI ON VEUT LOLILOL
+        
+        return $rs;
+    }
+
 }

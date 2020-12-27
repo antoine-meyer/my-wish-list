@@ -219,14 +219,15 @@ class ViewParticipant{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire :</u></h3>
-                <form id="formMessList" method="POST" action="{$va['basepath']}/liste?token={$a}">
+                <!--<form id="formMessList" method="POST" action="{$va['basepath']}/liste?token={$a}">-->
+                <form id="formMessList" method="get" action="{$va['basepath']}/liste_AAA">
                     <label>Ajouté un message ou un commentaire à la liste : </label>
                     <br>
                     <br>
-                    <input type="text" name="contenuCommentaireListe" value="" placeholder="Petit message" required>
+                    <input type="text" name="contenuCommentaireListe" value="valeurdefaut" placeholder="Petit message" required>
                     <br>
                     <br>
-                    <button type="submit" name="valider_message_liste" value="valid_mess_list" >Valider</button>
+                    <button type="submit" name="valider_message_liste" value="OK" >Valider</button>
                 </form>
             </section>
         END;
