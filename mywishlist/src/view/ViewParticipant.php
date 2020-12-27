@@ -43,28 +43,6 @@ class ViewParticipant{
         return $html;
     }
 
-    /*
-    public function renderPageErreur(array $vars){
-        $html = <<<END
-        <!DOCTYPE html>
-        <html lang="fr">
-            <head>
-                <meta charset="UTF-8">
-                <title>Application Wishlist</title>
-                <link rel="stylesheet" href="{$vars['basepath']}/../web/css/style.css">
-            </head>
-            <body>
-                <h1>Application Wishlist</h1>
-                <h2><u>Participants</u></h2>
-                <h3><u>ATTENTION :</u> Pas de liste de souhaits avec cette URL !</h3>
-                <h2>Fin de la page</h2>
-            </body>
-        </html>
-        END;
-        return $html;
-    }
-    */
-
     public function renderItem(array $vars){
         $content = $this->htmlUnItem($this->model[0], $vars);
 
@@ -136,7 +114,7 @@ class ViewParticipant{
 
         //gestion de l'affichage
         $html = <<<END
-        <a href="{$v['basepath']}/liste?token={$tokenListe}&items={$item->id}">
+        <a href="{$v['basepath']}/items/{$item->id}?token={$tokenListe}">
             <section class="contentItem">
                 <h3><u>Nom de l'item :</u> {$item->nom}</h3>
                 <img src="/mywishlist/web/img/{$item->img}" height=100>

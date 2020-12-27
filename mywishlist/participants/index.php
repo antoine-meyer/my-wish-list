@@ -41,4 +41,9 @@ $app->get('/liste', function(Request $rq, Response $rs, array $args): Response {
     return $c->getListeDestinataire($rq, $rs, $args);
 });
 
+$app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerParticipant($this);
+    return $c->getItem($rq, $rs, $args);
+});
+
 $app->run();
