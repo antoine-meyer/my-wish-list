@@ -7,6 +7,7 @@
 namespace mywishlist\view;
 
 use \mywishlist\models\Liste as Liste;
+use \mywishlist\models\CommentairesListes as CommentairesListes;
 
 class ViewParticipant{
 
@@ -76,7 +77,7 @@ class ViewParticipant{
     private function htmlUnItem(\mywishlist\models\Item $item, array $v): string{
         //gestion de la réservation
         if($item->reserve != 0){
-            $reserve = "Réservé par ".$item->participant;
+            $reserve = "Réservé par <i>".$item->participant."</i>";
         }else{
             $reserve = "Non réservé";
         }
@@ -99,7 +100,7 @@ class ViewParticipant{
         //retour de la fonction
         return $html;
     }
-
+    
     private function htmlUnItemDansListe(\mywishlist\models\Item $item, array $v): string{
         //gestion de la réservation
         $reserve = "Non réservé";
@@ -126,7 +127,7 @@ class ViewParticipant{
         //retour de la fonction
         return $html;
     }
-
+    
     private function htmlUneListeEtItems(\mywishlist\models\Liste $liste, array $v): string{
         $html = <<<END
             <h2><u>La liste</u></h2>
@@ -140,20 +141,40 @@ class ViewParticipant{
             </section>
         END;
         //formulaire pour laisser un message sur la liste
-        $html = $html . $this->formulaireMessageSurUneListe();  
+        $html = $html . $this->formulaireMessageSurUneListe($liste->token, $v);  
         //la liste des messages associés à la liste
         $html = $html . <<<END
             <h2><u>Les messages de la liste :</u></h2>
-            <section class="contentItemAlone">
-                <p>Ecrit par <b>XXX</b> : Message1<p>
-            </section>
-            <section class="contentItemAlone">
-                <p>Ecrit par <b>Atoine</b> : Message1</p>
-            </section>
-            <section class="contentItemAlone">
-                <p>Message1</p>
-            </section>
         END;
+        
+        //on récupère les messages pour cette liste dans la BDD
+        $comms = CommentairesListes::all();
+        $fin = 1;
+        $compteur_vide = 0;
+        while($fin <= count($comms)){
+            $c = CommentairesListes::query()->where('id', '=', $fin)->firstOrFail();
+            if($c['liste_id'] === $liste->no){
+                $html = $html . <<<END
+                <section class="contentItemAlone">
+                    <p>Date : {$c->date}</p>
+                    <p>Message : {$c->message}</p>
+                </section>
+                END;
+            }else{
+                $compteur_vide = $compteur_vide + 1;
+            }
+            $fin = $fin + 1;
+        }
+        //cas où on n'aurait une zone de message vide
+        if($compteur_vide === count($comms)){
+            $html = $html . <<<END
+            <section class="contentItemAlone">
+                <p>Encore aucun message pour cette liste ... soyez le premier ! </p>
+                <p>REMPLISSEZ LE FORMULAIRE CI DESSUS !! </p>
+            </section>
+            END;
+        }
+
         //
         $html = $html . <<<END
             <h2><u>Les items de la liste :</u></h2>
@@ -174,7 +195,7 @@ class ViewParticipant{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire de réservation :</u></h3>
-                <form id="" method="get" action="">
+                <form id="" method="post" action="">
                     <label>Nom du participant : </label>
                     <br>
                     <br>
@@ -194,18 +215,18 @@ class ViewParticipant{
         return $ht;
     }
 
-    private function formulaireMessageSurUneListe(): string{
+    private function formulaireMessageSurUneListe(string $a, array $va): string{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire :</u></h3>
-                <form id="" method="get" action="">
+                <form id="formMessList" method="POST" action="{$va['basepath']}/liste?token={$a}">
                     <label>Ajouté un message ou un commentaire à la liste : </label>
                     <br>
                     <br>
-                    <input>
+                    <input type="text" name="contenuCommentaireListe" value="" placeholder="Petit message" required>
                     <br>
                     <br>
-                    <button>Valider</button>
+                    <button type="submit" name="valider_message_liste" value="valid_mess_list" >Valider</button>
                 </form>
             </section>
         END;
