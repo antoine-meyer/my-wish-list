@@ -26,6 +26,7 @@ class ViewErreur{
             <body>
                 <h1>Application Wishlist</h1>
                 <h2><u>Participants & Créateurs</u></h2>
+                <h2>P.A.G.E - E.R.R.E.U.R</h2>
                 <h3><u>ATTENTION :</u> Pas de liste de souhaits avec cette URL !</h3>
                 <h3><u>ATTENTION :</u> Pas de créateurs pour cette URL !</h3>
                 <h2>Fin de la page</h2>

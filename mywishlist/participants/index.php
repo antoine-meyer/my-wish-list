@@ -46,9 +46,11 @@ $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Respo
     return $c->getItem($rq, $rs, $args);
 });
 
+/*
 $app->get('/liste_AAA', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerParticipant($this);
     return $c->getFormulaire($rq, $rs, $args);
 });
+*/
 
 $app->run();

@@ -220,11 +220,14 @@ class ViewParticipant{
             <section class="contentItemAlone">
                 <h3><u>Formulaire :</u></h3>
                 <!--<form id="formMessList" method="POST" action="{$va['basepath']}/liste?token={$a}">-->
-                <form id="formMessList" method="get" action="{$va['basepath']}/liste_AAA">
+                <!--<form id="formMessList" method="POST" action="{$va['basepath']}/liste_AAA">-->
+                <!--<form id="formMessList" method="POST" action="../src/view/test.php">-->
+                <!--<form id="formMessList" method="POST" action="{/$this->test()}">-->
+                <form id="formMessList" method="POST" action="">
                     <label>Ajouté un message ou un commentaire à la liste : </label>
                     <br>
                     <br>
-                    <input type="text" name="contenuCommentaireListe" value="valeurdefaut" placeholder="Petit message" required>
+                    <input type="text" name="contenuCommentaireListe" value="" placeholder="Petit message" required>
                     <br>
                     <br>
                     <button type="submit" name="valider_message_liste" value="OK" >Valider</button>
@@ -233,5 +236,14 @@ class ViewParticipant{
         END;
         return $ht;
     }
+
+    /*
+    private function test(): string{
+        $h = <<<END
+            
+
+        END;
+        return $h;
+    }*/
 
 }
