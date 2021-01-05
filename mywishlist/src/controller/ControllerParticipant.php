@@ -71,27 +71,36 @@ class ControllerParticipant {
 
 
     public function postFormulaireMessageListe($rq, $rs, $args){
-        
+        try{
+            $t = $rq->getQueryParam('token', null);
+            //$htmlvars = ['basepath'=>$rq->getUri()->getBasePath()."/liste?token={$t}"];
+            $liste = Liste::where('token', '=', $t)->firstOrFail();
 
-        //TODO
-        //check token
-        //get parsed body
-        //filtre information
-        //inserer OU erreur
-        //vue particpant "classique"
+            $nouveauCommentaireSurLaListe = $rq->getParsedBody()['contenuCommentaireListe'];
+            $liste_id = $liste->no;
+            $date = date('Y-m-d');
+
+            $query = filter_var($nouveauCommentaireSurLaListe, FILTER_SANITIZE_STRING);
+
+            $message = new \mywishlist\models\CommentairesListes;
+            $message->liste_id = $liste_id;
+            $message->message = $query;
+            $message->date = $date;
+            $message->save();
 
 
-        //on peut normalement recupere les informations du post ici
-        //$nouveauCommentaireSurLaListe = $rq->getParsedBody()['contenuCommentaireListe'];
-        //$query = filter_var($data['query'] ,FILTER_SANITIZE_STRING);
-        //print($nouveauCommentaireSurLaListe);
-        
-        //return $rs;
+            $rs = $this->getListeDestinataire($rq, $rs, $args);
 
-        $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
-        $rs->getBody()->write("<p>OUI ALLEZ DODO</p>");
+            //return $response->withRedirect('/new-url', 301);
+
+            //$rq->putUri("/ds");
+
+
+        }catch(ModelNotFoundException $e){
+            $mess = $this->affiche_page_erreur($rq, $rs, $args);
+            return $mess;
+        }
         return $rs;
-
     }
     
 

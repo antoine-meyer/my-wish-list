@@ -46,7 +46,7 @@ $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Respo
     return $c->getItem($rq, $rs, $args);
 });
 
-$app->post('/traitementFormulaireMessageListe', function(Request $rq, Response $rs, array $args): Response {
+$app->post('/liste', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerParticipant($this);
     return $c->postFormulaireMessageListe($rq, $rs, $args);
 });

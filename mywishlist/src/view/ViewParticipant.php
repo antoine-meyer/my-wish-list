@@ -201,10 +201,10 @@ class ViewParticipant{
                     <label>Message destiné au destinataire du cadeau : </label>
                     <br>
                     <br>
-                    <input>
+                    <input type="text" name="messageDestinataireCadeau">
                     <br>
                     <br>
-                    <button>Valider</button>
+                    <button type="submit">Valider</button>
                 </form>
             </section>
         END;
@@ -215,7 +215,7 @@ class ViewParticipant{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire :</u></h3>
-                <form id="formMessList" method="POST" action="{$va['basepath']}/traitementFormulaireMessageListe?token={$a}">
+                <form id="formMessList" method="POST" action="{$va['basepath']}/liste?token={$a}">
                     <label>Ajouté un message ou un commentaire à la liste : </label>
                     <br>
                     <br>
