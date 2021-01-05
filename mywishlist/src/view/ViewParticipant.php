@@ -92,7 +92,8 @@ class ViewParticipant{
         END;
         //
         if($item->reserve == 0){
-            $html = $html . $this->formulaireDeReservationDunItem();
+            $a = Liste::where('no', '=', $item->liste_id)->firstOrFail()->token;
+            $html = $html . $this->formulaireDeReservationDunItem($a, $v, $item->id);
         }   
         //retour de la fonction
         return $html;
@@ -187,24 +188,24 @@ class ViewParticipant{
         return $html;
     }
     
-    private function formulaireDeReservationDunItem(): string{
+    private function formulaireDeReservationDunItem(string $t, array $va, $num): string{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire de réservation :</u></h3>
-                <form id="" method="post" action="">
+                <form id="formReservCadeau" method="POST" action="{$va['basepath']}/items/{$num}?token={$t}">
                     <label>Nom du participant : </label>
                     <br>
                     <br>
-                    <input>
+                    <input type="text" name="nomReservantCadeau" value="" placeholder="Votre nom" required>
                     <br>
                     <br>
                     <label>Message destiné au destinataire du cadeau : </label>
                     <br>
                     <br>
-                    <input type="text" name="messageDestinataireCadeau">
+                    <input type="text" name="messageDestinataireCadeau" value="" placeholder="Votre message">
                     <br>
                     <br>
-                    <button type="submit">Valider</button>
+                    <button type="submit" name="valider_message_cadeau" value="OK">Valider</button>
                 </form>
             </section>
         END;
