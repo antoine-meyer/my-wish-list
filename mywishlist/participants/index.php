@@ -13,7 +13,7 @@ $app = new \Slim\App($c);
 //connection à la base de données
 \mywishlist\bd\Eloquent::start(__DIR__.'/../src/conf/dbconf.ini');
 
-//
+//get
 $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     $rs->getBody()->write("
     <!DOCTYPE html>
@@ -46,11 +46,15 @@ $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Respo
     return $c->getItem($rq, $rs, $args);
 });
 
+//post
 $app->post('/liste', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerParticipant($this);
     return $c->postFormulaireMessageListe($rq, $rs, $args);
 });
 
+$app->post('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
+    //BOULOT ICI
 
+});
 
 $app->run();

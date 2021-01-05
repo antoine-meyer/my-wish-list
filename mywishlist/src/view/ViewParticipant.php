@@ -92,8 +92,8 @@ class ViewParticipant{
         END;
         //
         if($item->reserve == 0){
-            $a = Liste::where('no', '=', $item->liste_id)->firstOrFail()->token;
-            $html = $html . $this->formulaireDeReservationDunItem($a, $v, $item->id);
+            $tokenDeLaListe = Liste::where('no', '=', $item->liste_id)->firstOrFail()->token;
+            $html = $html . $this->formulaireDeReservationDunItem($tokenDeLaListe, $v, $item->id);
         }   
         //retour de la fonction
         return $html;
@@ -188,7 +188,7 @@ class ViewParticipant{
         return $html;
     }
     
-    private function formulaireDeReservationDunItem(string $t, array $va, $num): string{
+    private function formulaireDeReservationDunItem(string $t, array $va, int $num): string{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire de réservation :</u></h3>
