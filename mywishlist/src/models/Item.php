@@ -15,7 +15,7 @@ class Item extends Model{
 
     //fonction qui fait l'association
     public function liste(){
-        return $this->belongsTo('\src\models\Liste', 'item_id');
+        return $this->belongsTo('\mywishlist\models\Liste', 'liste_id');
     }
     
 }

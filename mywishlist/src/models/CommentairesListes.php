@@ -12,11 +12,10 @@ class CommentairesListes extends Model{
     protected $table = 'commentairesListes';
     protected $primaryKey = 'id';
     public $timestamps = false;
-/*
+
     //fonction qui fait l'association
     public function liste(){
-        return $this->belongsTo('\src\models\Liste', 'item_id');
+        return $this->belongsTo('\mywishlist\models\Liste', 'liste_id');
     }
-    */
-    
+
 }

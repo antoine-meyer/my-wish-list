@@ -12,6 +12,7 @@ use \mywishlist\models\Item as Item;
 use \mywishlist\models\Liste as Liste;
 use \mywishlist\view\ViewParticipant as ViewParticipant;
 use \mywishlist\view\ViewErreur as ViewErreur;
+use \Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
 
 class ControllerParticipant {
 
@@ -23,39 +24,20 @@ class ControllerParticipant {
 
     public function getListeDestinataire($rq, $rs, $args){
         try{
+            $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
             $t = $rq->getQueryParam('token', null);
-            if($t === NULL){
-                $a = $this->affiche_page_erreur($rq, $rs, $args);
-                return $a;
-            }else{
-                $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
-                $elem = -1;
-                $liste = Liste::all();
-                $items = Item::all();
-                $trouve = false;
-                $nbr_liste = 0;
-                while($trouve === false && $nbr_liste <= count($liste)){
-                    if($liste[$nbr_liste]->token === $t){
-                        $trouve = true;
-                        $elem = $nbr_liste;
-                    }
-                    $nbr_liste = $nbr_liste + 1;
-                }
-                if($elem === -1){
-                    $v = new ViewErreur(NULL); 
-                    $rs->getBody()->write($v->render($htmlvars));
-                }else{
-                    //AMELIORATION : NE PAS METTRE TOUS LES ITEMS MAIS QUE CEUX QUI NOUS INTERESSENT ET DU COUP MODIF DANS LA VUE AUSSI
-                    $v = new ViewParticipant([$liste, $elem, $items]);
-                    $rs->getBody()->write($v->render($htmlvars));
-                }
-                return $rs;
-            }
-        }catch(ModelNotFoundException $e){
-            $rs->getBody()->write("exception");
-            return $rs;
+            $liste = Liste::where('token', '=', $t)->firstOrFail();
+            $items = $liste->items()->get();
+            $v = new ViewParticipant([$liste, $items]);
+            $rs->getBody()->write($v->render($htmlvars));
+        }catch(ModelNotFoundException $e){ 
+            $mess = $this->affiche_page_erreur($rq, $rs, $args);
+            return $mess;
         }
+        return $rs;
     }
+
+
 
     public function affiche_page_erreur($rq, $rs, $args){
         $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
@@ -64,66 +46,53 @@ class ControllerParticipant {
         return $rs;
     }
 
-    public function getItem(Request $rq, Response $rs, array $args):Response{
+
+
+    public function getItem(Request $rq, Response $rs, array $args){
         try{
-            //on recupere le token
+            $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
             $t = $rq->getQueryParam('token', null);
-            if($t === NULL){
-                $a = $this->affiche_page_erreur($rq, $rs, $args);
-                return $a;
+            $liste = Liste::where('token', '=', $t)->firstOrFail();
+            $item = Item::where('id', '=', $args['id'])->firstOrFail();
+            if($item->liste_id === $liste->no){
+                $v = new ViewParticipant([$item]);    
+                $rs->getBody()->write($v->renderItem($htmlvars));
             }else{
-                //on parcours les token pour savoir s'il existe
-                $liste = Liste::all();
-                $liste_trouve = -1;
-                for($j=0; $j<= count($liste); $j++){
-                    if($liste[$j]->token === $t){
-                        $liste_trouve = $liste[$j]->no;
-                    }
-                }
-                if($liste_trouve === -1){
-                    $a = $this->affiche_page_erreur($rq, $rs, $args);
-                    return $a;
-                }else{
-                    //on regarde si l'item qu'on a es dans la liste
-                    $item = Item::query()->where('id', '=', $args['id'])->firstOrFail();
-                    //on regarde si l'item passé en parametre a pour liste
-                    //la liste qui a pour token le token en parametre
-                    if($liste_trouve === $item->liste_id){
-                        $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
-                        $v = new ViewParticipant([$item]);
-                        $rs->getBody()->write($v->renderItem($htmlvars));
-                        return $rs;
-                    }else{
-                        $a = $this->affiche_page_erreur($rq, $rs, $args);
-                        return $a;
-                    }
-                }
+                $mess = $this->affiche_page_erreur($rq, $rs, $args);
+                return $mess;
             }
-        }catch(ModelNotFoundException $e){
-            $rs->getBody()->write("Item {$item->id} non trouvé");
-            return $rs;
+        }catch(ModelNotFoundException $e){ 
+            $mess = $this->affiche_page_erreur($rq, $rs, $args);
+            return $mess;
         }
-    }
-
-    /*
-    public function getFormulaire($rq, $rs, $args){
-        $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
-        //$v = new ViewErreur(NULL); 
-        $rs->getBody()->write("<p>OUI ALLEZ DODO</p>");
-
-        //on peut normalement recupere les informations du post ici
-        $nouveauCommentaireSurLaListe = $rq->getParsedBody()['contenuCommentaireListe'];
-        //$query = filter_var($data['query'] ,FILTER_SANITIZE_STRING);
-        print($nouveauCommentaireSurLaListe);
-        
-        //ON PEUT UTILISER DES VUES 
-                    //ICI
-        
-        
-        //SI ON VEUT LOLILOL
-        
         return $rs;
     }
-    */
+
+
+
+    public function postFormulaireMessageListe($rq, $rs, $args){
+        
+
+        //TODO
+        //check token
+        //get parsed body
+        //filtre information
+        //inserer OU erreur
+        //vue particpant "classique"
+
+
+        //on peut normalement recupere les informations du post ici
+        //$nouveauCommentaireSurLaListe = $rq->getParsedBody()['contenuCommentaireListe'];
+        //$query = filter_var($data['query'] ,FILTER_SANITIZE_STRING);
+        //print($nouveauCommentaireSurLaListe);
+        
+        //return $rs;
+
+        $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
+        $rs->getBody()->write("<p>OUI ALLEZ DODO</p>");
+        return $rs;
+
+    }
+    
 
 }

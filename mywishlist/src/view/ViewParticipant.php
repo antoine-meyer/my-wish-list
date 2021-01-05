@@ -18,12 +18,9 @@ class ViewParticipant{
     }
 
     public function render(array $vars){
-        //on recupere l'indice
-        $indice = $this->model[1];
-        //si l'indice est -1 alors on a pas une bonne URL
-        if($indice !== -1){
-            $content = $this->htmlUneListeEtItems($this->model[0][$indice], $vars);
-        }
+
+        $content = $this->htmlUneListeEtItems($this->model[0], $vars);
+    
         //partie commune de la page
         $html = <<<END
         <!DOCTYPE html>
@@ -50,7 +47,7 @@ class ViewParticipant{
         //on recupère la liste qui contient l'item actuel
         $numListe = $this->model[0]->liste_id;
         //on récupère le token associé
-        $tokenListe = Liste::query()->where('no', '=', $numListe)->firstOrFail()->token;
+        $tokenListe = Liste::where('no', '=', $numListe)->firstOrFail()->token;
         //===> cela nous permet de gérer le bouton retour à la liste
 
         //partie commune de la page
@@ -148,6 +145,7 @@ class ViewParticipant{
         END;
         
         //on récupère les messages pour cette liste dans la BDD
+        //UTILISER LASSOCIATION
         $comms = CommentairesListes::all();
         $fin = 1;
         $compteur_vide = 0;
@@ -179,14 +177,12 @@ class ViewParticipant{
         $html = $html . <<<END
             <h2><u>Les items de la liste :</u></h2>
         END;
+        
         //on recupere les items
-        $items = $this->model[2];
+        $items = $this->model[1];
         //on check tous les items
         foreach($items as $i){
-            //on affiche que ceux qui font parti de la liste demandée
-            if($i->liste_id === $liste->no){
-                $html = $html . $this->htmlUnItemDansListe($i, $v);
-            }
+            $html = $html . $this->htmlUnItemDansListe($i, $v);
         }
         return $html;
     }
@@ -219,11 +215,7 @@ class ViewParticipant{
         $ht = <<<END
             <section class="contentItemAlone">
                 <h3><u>Formulaire :</u></h3>
-                <!--<form id="formMessList" method="POST" action="{$va['basepath']}/liste?token={$a}">-->
-                <!--<form id="formMessList" method="POST" action="{$va['basepath']}/liste_AAA">-->
-                <!--<form id="formMessList" method="POST" action="../src/view/test.php">-->
-                <!--<form id="formMessList" method="POST" action="{/$this->test()}">-->
-                <form id="formMessList" method="POST" action="">
+                <form id="formMessList" method="POST" action="{$va['basepath']}/traitementFormulaireMessageListe?token={$a}">
                     <label>Ajouté un message ou un commentaire à la liste : </label>
                     <br>
                     <br>
@@ -236,14 +228,5 @@ class ViewParticipant{
         END;
         return $ht;
     }
-
-    /*
-    private function test(): string{
-        $h = <<<END
-            
-
-        END;
-        return $h;
-    }*/
 
 }
