@@ -75,8 +75,15 @@ class ViewParticipant{
         //gestion de la réservation
         if($item->reserve != 0){
             $reserve = "Réservé par <i>".$item->participant."</i>";
+            //gestion du message associé à la réservation ou non
+            if($item->messageReservation != NULL){
+                $messReser = "<h3><u>Message associé à la réservation :</u> $item->messageReservation</h3>";
+            }else{
+                $messReser = "<h3><u>Message associé à la réservation :</u> Pas de message associé.</h3>";
+            }
         }else{
             $reserve = "Non réservé";
+            $messReser = "";
         }
         //gestion de l'affichage
         $html = <<<END
@@ -87,6 +94,7 @@ class ViewParticipant{
             <img src="/mywishlist/web/img/{$item->img}" height=100>
             <h3><u>Prix :</u> {$item->tarif}€</h3>
             <h3><u>État :</u> {$reserve}</h3>
+            $messReser
         </section>
         <br>
         END;
