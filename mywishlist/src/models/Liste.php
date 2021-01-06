@@ -22,4 +22,8 @@ class Liste extends Model{
     public function commentaires(){
         return $this->hasMany('\mywishlist\models\CommentairesListes', 'liste_id');
     }
+    //dans l'autre sens avec compte
+    public function compte(){
+        return $this->belongsTo('\mywishlist\models\Compte', 'user_id');
+    }
 }

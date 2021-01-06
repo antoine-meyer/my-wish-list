@@ -26,7 +26,8 @@ $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     <body>
         <h1>Application Wishlist</h1>
         <h2><u>Créateurs</u></h2>
-        <form method='get' class='formuCrea' action='compte'>
+        <h1>CE FORMULAIRE NE SERT ENCORE A RIEN; MET /compte/4?tokenmodif=.... pour voir quelque chose !</h1>
+        <form method='get' class='formuCrea' action=''>
             <div class=''>
                 <div class=''>
                     <input class='cham' title='E-mail ou identifiant' maxlength='320' type='text' placeholder='E-mail ou identifiant' autocorrect='off' spellcheck='false'>
@@ -45,7 +46,7 @@ $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     return $rs;
 });
 
-$app->get('/compte', function(Request $rq, Response $rs, array $args): Response {
+$app->get('/compte/{userid}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
     return $c->getCompteCreateur($rq, $rs, $args);
 });
