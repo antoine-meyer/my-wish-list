@@ -53,8 +53,8 @@ $app->post('/liste', function(Request $rq, Response $rs, array $args): Response 
 });
 
 $app->post('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
-    //BOULOT ICI
-    
+    $c = new mywishlist\controller\ControllerParticipant($this);
+    return $c->postFormulaireMessageReservationItem($rq, $rs, $args);
 });
 
 $app->run();

@@ -73,32 +73,54 @@ class ControllerParticipant {
     public function postFormulaireMessageListe($rq, $rs, $args){
         try{
             $t = $rq->getQueryParam('token', null);
-            //$htmlvars = ['basepath'=>$rq->getUri()->getBasePath()."/liste?token={$t}"];
             $liste = Liste::where('token', '=', $t)->firstOrFail();
-
             $nouveauCommentaireSurLaListe = $rq->getParsedBody()['contenuCommentaireListe'];
             $liste_id = $liste->no;
             $date = date('Y-m-d');
-
             $query = filter_var($nouveauCommentaireSurLaListe, FILTER_SANITIZE_STRING);
-
             $message = new \mywishlist\models\CommentairesListes;
             $message->liste_id = $liste_id;
             $message->message = $query;
             $message->date = $date;
             $message->save();
-
-
             $rs = $this->getListeDestinataire($rq, $rs, $args);
-
-            //return $response->withRedirect('/new-url', 301);
-
-            //$rq->putUri("/ds");
-
-
         }catch(ModelNotFoundException $e){
-            $mess = $this->affiche_page_erreur($rq, $rs, $args);
-            return $mess;
+            $rs = $this->affiche_page_erreur($rq, $rs, $args);
+        }
+        return $rs;
+    }
+
+
+    
+    public function postFormulaireMessageReservationItem($rq, $rs, $args){
+        try{
+            $t = $rq->getQueryParam('token', null);
+            $liste = Liste::where('token', '=', $t)->firstOrFail();
+            $item = Item::where('id', '=', $args['id'])->firstOrFail();
+            //on vérifie que l'item correspond bien au token
+            if($item->liste_id === $liste->no){
+                //on récupère le nom et le message du formulaire
+                $nom = $rq->getParsedBody()['nomReservantCadeau'];
+                $me = $rq->getParsedBody()['messageDestinataireCadeau'];
+                //si le message est vide on met null dans la base
+                if($me===""){
+                    $me = NULL;
+                }
+                //on filtre les données entrées
+                $query1 = filter_var($nom, FILTER_SANITIZE_STRING);
+                $query2 = filter_var($me, FILTER_SANITIZE_STRING);
+                //on insert dans la base
+                $item->reserve = 1;
+                $item->participant = $nom;
+                $item->messageReservation = $me;
+                $item->save();                
+                //on réactualise la page de l'item
+                $rs = $this->getItem($rq, $rs, $args);
+            }else{
+                $rs = $this->affiche_page_erreur($rq, $rs, $args);
+            }
+        }catch(ModelNotFoundException $e){
+            $rs = $this->affiche_page_erreur($rq, $rs, $args);
         }
         return $rs;
     }
