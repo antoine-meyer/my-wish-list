@@ -63,30 +63,32 @@ class ViewCreateur{
         }
 
         //formulaire pour créer une liste
+        $numCompte = $this->model[0]->id;
+        $t = $this->model[0]->tokenmodification;
         $a = $a . <<<END
         <h2><u>Créer une nouvelle liste</u></h2>
         <section class="formulaire-liste">
             <p><b><u>Formulaire de création d'une nouvelle liste :</u></b></p>
-            <form id="" method="POST" action="">
+            <form id="" method="POST" action="{$vars['basepath']}/compte/{$numCompte}?token={$t}">
                     <label>Titre : </label>
                     <br>
                     <br>
-                    <input type="text" name="" value="" placeholder="Le titre" required>
+                    <input type="text" name="tit" value="" placeholder="Le titre" required>
                     <br>
                     <br>
                     <label>Description : </label>
                     <br>
                     <br>
-                    <input type="text" name="" value="" placeholder="Votre description" required>
+                    <input type="text" name="des" value="" placeholder="Votre description" required>
                     <br>
                     <br>
                     <label>Date d'échéance de la liste de souhaits : </label>
                     <br>
                     <br>
-                    <input type="date" name="" value="" placeholder="La date" required>
+                    <input type="date" name="dat" value="" placeholder="La date" required>
                     <br>
                     <br>
-                    <button type="submit" name="valider_message_cadeau" value="OK">Créer liste</button>
+                    <button type="submit" name="val" value="OK">Créer liste</button>
                 </form>
         </section>
         END;

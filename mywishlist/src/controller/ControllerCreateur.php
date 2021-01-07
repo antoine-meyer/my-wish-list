@@ -50,4 +50,17 @@ class ControllerCreateur {
         return $rs;
     }
 
+
+    public function forCreationNewListe($rq, $rs, $args){
+        $titre = $rq->getParsedBody()['tit'];
+        $descr = $rq->getParsedBody()['des'];
+        $date = $rq->getParsedBody()['dat'];
+        //BOULOT ICI
+        //filtre
+        //insertion
+        //etc !!
+        $rs->getBody()->write($titre . "".  $descr . $date);
+        return $rs;
+    }
+
 }
