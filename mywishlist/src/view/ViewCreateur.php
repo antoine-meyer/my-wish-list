@@ -28,6 +28,18 @@ class ViewCreateur{
         $a = $a . "<h2><u>Vos listes</u></h2>";
         for($i=0; $i<count($listes); $i++){
             $num = $i + 1;
+            //si on a un token alors liste public sinon liste privé
+            if($listes[$i]->token !== NULL){
+                $partage = <<<END
+                <p><u>Liste partagée dont l'URL est :</u> /mywishlist/participants/liste?token={$listes[$i]->token}</p>
+                END;
+            }else{
+                $partage = <<<END
+                <p><b>Liste non partagée ...</b></p>
+                END;
+            }
+            
+            //résultat
             $a = $a . <<<END
             <a href="{$vars['basepath']}/liste/{$listes[$i]->no}">
                 <section class="une-boite-de-liste">
@@ -35,13 +47,13 @@ class ViewCreateur{
                     <p><u>Titre :</u> {$listes[$i]->titre}</p>
                     <p><u>Description :</u> {$listes[$i]->description}</p>
                     <p><u>Date d'expiration :</u> {$listes[$i]->expiration}</p>
-                    <p><u>URL à partager :</u> /mywishlist/participants/liste?token={$listes[$i]->token}</p>
+                    $partage
                 </section>
             </a>
             <br>
             END;
         }
-        
+
         //cas où il n'y aurait pas encore de liste
         if(count($listes) === 0){
             $a = $a . <<<END
@@ -50,9 +62,34 @@ class ViewCreateur{
             END;
         }
 
-        //bouton pour créer une liste
-        $a = $a . "<h2><u>Créer une nouvelle liste</u></h2>";
-        $a = $a . "<button type='' name='' value='' >Nouvelle liste</button>";
+        //formulaire pour créer une liste
+        $a = $a . <<<END
+        <h2><u>Créer une nouvelle liste</u></h2>
+        <section class="formulaire-liste">
+            <p><b><u>Formulaire de création d'une nouvelle liste :</u></b></p>
+            <form id="" method="POST" action="">
+                    <label>Titre : </label>
+                    <br>
+                    <br>
+                    <input type="text" name="" value="" placeholder="Le titre" required>
+                    <br>
+                    <br>
+                    <label>Description : </label>
+                    <br>
+                    <br>
+                    <input type="text" name="" value="" placeholder="Votre description" required>
+                    <br>
+                    <br>
+                    <label>Date d'échéance de la liste de souhaits : </label>
+                    <br>
+                    <br>
+                    <input type="date" name="" value="" placeholder="La date" required>
+                    <br>
+                    <br>
+                    <button type="submit" name="valider_message_cadeau" value="OK">Créer liste</button>
+                </form>
+        </section>
+        END;
 
         //on assemble le tout et on renvoie
         $html = <<<END

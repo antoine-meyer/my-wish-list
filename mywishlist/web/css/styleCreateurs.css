@@ -30,3 +30,10 @@ quand on voit toutes les listes d'un createur
     color: #222;
     background-color: #fff;
 }
+/*
+formualire de création d'une nouvelle liste
+*/
+.formulaire-liste{
+    padding: 10px;
+    background-color: #222;
+}
