@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \mywishlist\models\Liste as Liste;
 use \mywishlist\models\Compte as Compte;
 use \mywishlist\view\ViewErreur as ViewErreur;
+use \mywishlist\view\ViewCreateur as ViewCreateur;
 use \Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
 
 class ControllerCreateur {
@@ -26,31 +27,15 @@ class ControllerCreateur {
 
     public function getCompteCreateur($rq, $rs, $args){
         try{
-            //sur cette page on va afficher
-            //toutes les listes de l'user {id passe}
-
-
             //on recupere le chemin de base
             $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
             //on recupere rien ou la ou les listes de ce compte
             $compte = Compte::where('id','=', $args['userid'])->firstOrFail();
             $liste = $compte->listes()->get();
-            
-            //FAIRE UNE VUE
-            //BOULOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOT ICI
-            /*
-            $a = count($liste);
-            $html = <<<END
-                <p>Vous etes {$compte->nom}</p>
-                <p>Votre mdp est {$compte->password}</p>
-                <p>Vous avez {$a} liste(s).</p>
-                <p></p>
-                <p></p>
-            END;
-            */
+            //on renvoie la vue
+            $v = new ViewCreateur([$compte, $liste]);    
+            $rs->getBody()->write($v->renderListes($htmlvars));
 
-            $rs->getBody()->write($html);
-           
         }catch(ModelNotFoundException $e){
             $rs = $this->affiche_page_erreur($rq, $rs, $args);
         }

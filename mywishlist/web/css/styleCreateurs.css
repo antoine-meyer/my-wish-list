@@ -5,3 +5,28 @@ html{
     background-color: #333;
     color: #fff;
 }
+/*
+on centre des textes
+*/
+h1, h2 {
+    text-transform: uppercase;
+    text-align: center;
+}
+/*
+gestion des liens 
+*/
+a{
+    text-decoration: none;
+    color: #fff;
+}
+/*
+quand on voit toutes les listes d'un createur
+*/
+.une-boite-de-liste{
+    padding: 10px;
+    background-color: #222;
+}
+.une-boite-de-liste:hover{
+    color: #222;
+    background-color: #fff;
+}
