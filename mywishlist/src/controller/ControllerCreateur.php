@@ -29,13 +29,21 @@ class ControllerCreateur {
         try{
             //on recupere le chemin de base
             $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
+            //on recupere le token de modification
+            $t = $rq->getQueryParam('token', null);
             //on recupere rien ou la ou les listes de ce compte
             $compte = Compte::where('id','=', $args['userid'])->firstOrFail();
-            $liste = $compte->listes()->get();
-            //on renvoie la vue
-            $v = new ViewCreateur([$compte, $liste]);    
-            $rs->getBody()->write($v->renderListes($htmlvars));
-
+            //on regarde si le numéro de token et le numéro de compte correspond
+            if($compte->tokenmodification === $t){
+                //on recupere les bonnes listes
+                $liste = $compte->listes()->get();
+                //on renvoie la vue
+                $v = new ViewCreateur([$compte, $liste]);    
+                $rs->getBody()->write($v->renderListes($htmlvars));
+            }else{
+                //sinon erreur
+                $rs = $this->affiche_page_erreur($rq, $rs, $args);
+            }
         }catch(ModelNotFoundException $e){
             $rs = $this->affiche_page_erreur($rq, $rs, $args);
         }

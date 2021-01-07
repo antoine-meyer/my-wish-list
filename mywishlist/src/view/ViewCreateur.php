@@ -41,10 +41,18 @@ class ViewCreateur{
             <br>
             END;
         }
+        
+        //cas où il n'y aurait pas encore de liste
+        if(count($listes) === 0){
+            $a = $a . <<<END
+                <p>Vous n'avez pas encore de liste ...</p>
+                <p>Pas de panique, vous pouvez en créer une avec le bouton ci dessous !</p>
+            END;
+        }
 
         //bouton pour créer une liste
         $a = $a . "<h2><u>Créer une nouvelle liste</u></h2>";
-        $a = $a . "BOUTON +";
+        $a = $a . "<button type='' name='' value='' >Nouvelle liste</button>";
 
         //on assemble le tout et on renvoie
         $html = <<<END
@@ -59,6 +67,7 @@ class ViewCreateur{
                 <h1>Application Wishlist</h1>
                 <h2><u>Créateurs</u></h2>
                 $a
+                <h2>Fin de page</h2>
             </body>
         </html>
         END;

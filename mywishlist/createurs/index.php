@@ -14,6 +14,7 @@ $app = new \Slim\App($c);
 \mywishlist\bd\Eloquent::start(__DIR__.'/../src/conf/dbconf.ini');
 
 //
+/*
 $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     $rs->getBody()->write("
     <!DOCTYPE html>
@@ -44,7 +45,7 @@ $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     </html>
     ");
     return $rs;
-});
+});*/
 
 $app->get('/compte/{userid}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
