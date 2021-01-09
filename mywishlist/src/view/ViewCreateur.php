@@ -17,28 +17,59 @@ class ViewCreateur{
     public function renderUneListe(array $vars){
         //on récupère la liste
         $liste = $this->model[0];
-        //informations de la liste et modification possible
-            //bouton retour pour revenir au compte
+        //on récupère le compte associé
+        $compte = $liste->compte()->get()[0];
+
+        //bouton retour vers le compte du créateur de cette liste
+        //on récupère l'id du compte/user 
+        $id = $compte->id;
+        //et le token de modification associé
+        $t = $compte->tokenmodification; 
         $a = <<<END
+            <a href='{$vars['basepath']}/compte/{$id}?token={$t}' class=''>
+                <button type="" name="" value="OK">Retour vers le compte</button>
+            </a>
+        END;
+
+
+        //informations de la liste et modification possible
+        $a = $a . <<<END
             <h2><u>informations de la liste</u></h2>
-            <p>{$liste->titre}</p>
-            <br>
-            <p>Token :</p>
-            <p>{$liste->token}</p>
+            <p>Titre : {$liste->titre}</p>
+            <p>Description : {$liste->description}</p>
+            <p>Expiration : {$liste->expiration}</p>
         END;
 
         //modifications des informations générales de la liste
             //<p>formualire poiur modifier les informations, aucun champs n'est required</p>
         $a = $a . <<<END
             <h2><u>modifications des informations</u></h2>
-            
+            <p>Remplissez ce </p>
+            <section class="formulaire-liste">
+                <form id="" method="" action="">
+                    <label>CHAMP A FAIRE : </label><br><br><br><br><br><br>
+                    <button type="" name="" value="OK">Modifier</button>
+                </form>
+            </section>
         END;
 
         //listes des items de la liste
             //il y a un bouton modifier qui envoie vers /item/x?token=... avec une page juste informations de l'item et formulaire pour modifier l'item et un bouton retour
             //il y a un bouton supprimer
         $a = $a . <<<END
-
+            <h2><u>LES ITEMS DE LA LISTE</u></h2>
+            <p>Item 1</p>
+            <button type="" name="" value="OK">Modifier</button>
+            <button type="" name="" value="OK">Supprimer</button>
+            <br><br>
+            <p>Item 2</p>
+            <button type="" name="" value="OK">Modifier</button>
+            <button type="" name="" value="OK">Supprimer</button>
+            <br><br>
+            <p>Item blabla</p>
+            <button type="" name="" value="OK">Modifier</button>
+            <button type="" name="" value="OK">Supprimer</button>
+            <br><br>
         END;
 
         //ajout d'un item avec formulaire de création d'un item
