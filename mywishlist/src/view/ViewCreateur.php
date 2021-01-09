@@ -89,10 +89,23 @@ class ViewCreateur{
 
 
         //bouton pour partager la liste !
+        //on partage que si la liste n'est pas déjà partagée donc on le vérifie
         $a = $a . <<<END
             <h2><u>Partager cette liste</u></h2>
-            <button type="" name="" value="" >Partager la liste</button>
         END;
+        if($liste->token !== NULL){
+            $a = $a . <<<END
+                <p>Liste déjà partagée !</p>
+                <p>Allez voir cette URL : /mywishlist/participants/liste?token={$liste->token}</p>
+                <button type="" name="" value="" >Ne plus partager la liste</button>
+            END;
+        }else{
+            $a = $a . <<<END
+                <p>Cette liste n'est pas encore partagée ... Voulez vous le faire ?</p>
+                <button type="" name="" value="" >Partager la liste</button>
+            END;
+        }
+        
 
         //D'AUTRES TRUCS VOIR SUJET !
 
