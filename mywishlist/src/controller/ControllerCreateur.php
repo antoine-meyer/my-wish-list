@@ -57,9 +57,9 @@ class ControllerCreateur {
         $descr = $rq->getParsedBody()['des'];
         $date = $rq->getParsedBody()['dat'];
         $user = $args['userid'];
-        //$tokMod = CREER UN TOKEN DE MODIFICATION;
-        $tokMod = "BlaBlaX";
-
+        $tokMod = random_bytes(10);
+        $tokMod = bin2hex($tokMod);
+    
         //filtres
         $titreFiltre = filter_var($titre, FILTER_SANITIZE_STRING);
         $descrFiltre = filter_var($descr, FILTER_SANITIZE_STRING);
@@ -74,7 +74,7 @@ class ControllerCreateur {
         $newListe->save();
 
         //renvoie de la vue
-        $rs->getBody()->write($titre . "\n".  $descr . $date);
+        $rs = $this->getCompteCreateur($rq, $rs, $args);
         return $rs;
     }
 

@@ -13,7 +13,7 @@ $app = new \Slim\App($c);
 //connection à la base de données
 \mywishlist\bd\Eloquent::start(__DIR__.'/../src/conf/dbconf.ini');
 
-//
+//get
 /*
 $app->get('[/]', function(Request $rq, Response $rs, array $args): Response {
     $rs->getBody()->write("
@@ -52,6 +52,7 @@ $app->get('/compte/{userid}', function(Request $rq, Response $rs, array $args): 
     return $c->getCompteCreateur($rq, $rs, $args);
 });
 
+//post
 $app->post('/compte/{userid}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
     return $c->forCreationNewListe($rq, $rs, $args);
