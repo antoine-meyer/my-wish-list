@@ -52,14 +52,29 @@ class ControllerCreateur {
 
 
     public function forCreationNewListe($rq, $rs, $args){
+        //on recupère les données
         $titre = $rq->getParsedBody()['tit'];
         $descr = $rq->getParsedBody()['des'];
         $date = $rq->getParsedBody()['dat'];
-        //BOULOT ICI
-        //filtre
-        //insertion
-        //etc !!
-        $rs->getBody()->write($titre . "".  $descr . $date);
+        $user = $args['userid'];
+        //$tokMod = CREER UN TOKEN DE MODIFICATION;
+        $tokMod = "BlaBlaX";
+
+        //filtres
+        $titreFiltre = filter_var($titre, FILTER_SANITIZE_STRING);
+        $descrFiltre = filter_var($descr, FILTER_SANITIZE_STRING);
+        
+        //insertions
+        $newListe = new \mywishlist\models\Liste;
+        $newListe->user_id = $user;
+        $newListe->titre = $titreFiltre;
+        $newListe->description = $descrFiltre;
+        $newListe->expiration = $date;
+        $newListe->tokenDeModification = $tokMod;
+        $newListe->save();
+
+        //renvoie de la vue
+        $rs->getBody()->write($titre . "\n".  $descr . $date);
         return $rs;
     }
 
