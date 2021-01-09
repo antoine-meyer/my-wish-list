@@ -78,4 +78,29 @@ class ControllerCreateur {
         return $rs;
     }
 
+    public function getListeCreateur($rq, $rs, $args){
+        try{
+            //on recupere le chemin de base
+            $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
+            //on recupere le token de modification
+            $t = $rq->getQueryParam('token', null);
+            //on recupere une liste
+            $liste = Liste::where('no','=', $args['no'])->firstOrFail();
+            //on regarde si le numéro de token et le numéro de compte correspond
+            if($liste->tokenDeModification === $t){
+                //on renvoie la vue
+                $v = new ViewCreateur([$liste]);    
+                $rs->getBody()->write($v->renderUneListe($htmlvars));
+            }else{
+                //sinon erreur
+                $rs = $this->affiche_page_erreur($rq, $rs, $args);
+            }
+        
+        
+        }catch(ModelNotFoundException $e){
+            $rs = $this->affiche_page_erreur($rq, $rs, $args);
+        }
+        return $rs;
+    }
+
 }

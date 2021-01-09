@@ -14,6 +14,77 @@ class ViewCreateur{
         $this->model = $m;
     }
 
+    public function renderUneListe(array $vars){
+        //on récupère la liste
+        $liste = $this->model[0];
+        //informations de la liste et modification possible
+            //bouton retour pour revenir au compte
+        $a = <<<END
+            <h2><u>informations de la liste</u></h2>
+            <p>{$liste->titre}</p>
+            <br>
+            <p>Token :</p>
+            <p>{$liste->token}</p>
+        END;
+
+        //modifications des informations générales de la liste
+            //<p>formualire poiur modifier les informations, aucun champs n'est required</p>
+        $a = $a . <<<END
+            <h2><u>modifications des informations</u></h2>
+            
+        END;
+
+        //listes des items de la liste
+            //il y a un bouton modifier qui envoie vers /item/x?token=... avec une page juste informations de l'item et formulaire pour modifier l'item et un bouton retour
+            //il y a un bouton supprimer
+        $a = $a . <<<END
+
+        END;
+
+        //ajout d'un item avec formulaire de création d'un item
+            //nom
+            //prix
+            //url pour image
+        $a = $a . <<<END
+            <h2><u>Ajouter un item</u></h2>
+            <p>Remplissez ce formulaire pour ajouter un item à cette liste. Si vous avez mal remplit pas d'inquiétude : vous pouvez toujours modifier les informations d'un l'item.</p>
+            <section class="formulaire-liste">
+                <form id="" method="" action="">
+                    <label>CHAMP A FAIRE : </label><br><br><br><br><br><br>
+                    <button type="" name="" value="OK">Ajouter</button>
+                </form>
+            </section>
+        END;
+
+
+        //bouton pour partager la liste !
+        $a = $a . <<<END
+            <h2><u>Partager cette liste</u></h2>
+            <button type="" name="" value="" >Partager la liste</button>
+        END;
+
+        //D'AUTRES TRUCS VOIR SUJET !
+
+        //page générale
+        $html = <<<END
+        <!DOCTYPE html>
+        <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Application Wishlist</title>
+                <link rel="stylesheet" href="{$vars['basepath']}/../web/css/styleCreateurs.css">
+            </head>
+            <body>
+                <h1>Application Wishlist</h1>
+                <h2><u>Créateurs</u></h2>
+                $a
+                <h2>Fin de page</h2>
+            </body>
+        </html>
+        END;
+        return $html;
+    }
+
     public function renderListes(array $vars){
         //on recupere les listes
         $listes = $this->model[1];
@@ -41,7 +112,7 @@ class ViewCreateur{
             
             //résultat
             $a = $a . <<<END
-            <a href="{$vars['basepath']}/liste/{$listes[$i]->no}">
+            <a href="{$vars['basepath']}/liste/{$listes[$i]->no}?token={$listes[$i]->tokenDeModification}">
                 <section class="une-boite-de-liste">
                     <p><b>Liste numéro $num</b></p>
                     <p><u>Titre :</u> {$listes[$i]->titre}</p>
@@ -114,8 +185,5 @@ class ViewCreateur{
     }
 
 
-    public function renderUneListe(array $vars){
-
-    }
 
 }

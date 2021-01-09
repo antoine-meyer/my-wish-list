@@ -52,6 +52,13 @@ $app->get('/compte/{userid}', function(Request $rq, Response $rs, array $args): 
     return $c->getCompteCreateur($rq, $rs, $args);
 });
 
+$app->get('/liste/{no}', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerCreateur($this);
+    return $c->getListeCreateur($rq, $rs, $args);
+});
+
+
+
 //post
 $app->post('/compte/{userid}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
