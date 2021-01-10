@@ -58,35 +58,47 @@ class ViewCreateur{
 
 
         //listes des items de la liste
-            //il y a un bouton modifier qui envoie vers /item/x?token=... avec une page juste informations de l'item et formulaire pour modifier l'item et un bouton retour
-            //il y a un bouton supprimer
         $a = $a . "<h2><u>LES ITEMS DE LA LISTE</u></h2>";
-        $a = $a . "<p>======</p>";
         //on récupère les items associés
         $items = $liste->items()->get();
         //on affiche les items
-        foreach($items as $i){
+        //s'il n'y a pas d'items alors on affiche un joli message
+        if(count($items) === 0){
             $a = $a . <<<END
-                <p><b>Nom : </b>{$i->nom}</p>
-                <p><b>Description : </b>{$i->descr}</p>
-                <p><b>Prix : </b>{$i->tarif}</p>
+                <p>Pas encore d'items ! Ajouter en avec le formulaire ci dessous !</p>
             END;
-            //on regarde si l'item est réservé on ne peut plus le modifier
-            $c = "";
-            if($i->reserve === 1){
-                $c = "<p>L'item est <b>réservé</b> : vous ne pouvez plus le modifier ni le supprimer.</p>";
-            }else{
-                $c = $c . <<<END
-                    <p>L'item n'est <b>pas encore réservé</b> : modifier ou supprimer.</p>
-                    <button type="" name="" value="OK">Modifier</button>
-                    <button type="" name="" value="OK">Supprimer</button>
+        }else{
+            $a = $a . "<p>======</p>";
+            foreach($items as $i){
+                $a = $a . <<<END
+                    <p><b>Nom : </b>{$i->nom}</p>
+                    <p><b>Description : </b>{$i->descr}</p>
+                    <p><b>Prix : </b>{$i->tarif}€</p>
+                END;
+                //on regarde si l'item est réservé on ne peut plus le modifier
+                $c = "";
+                if($i->reserve === 1){
+                    $c = "<p>L'item est <b>réservé</b> : vous ne pouvez plus le modifier ni le supprimer.</p>";
+                }else{
+                    $c = $c . <<<END
+                        <p>L'item n'est <b>pas encore réservé</b> !</p>
+                        <form id="" method="" action="{$vars['basepath']}/items/{$i->id}">
+                            <label>Modifier l'item : </label>
+                            <button type="" name="" value="">Modifier</button>
+                        </form>
+                        <br>
+                        <form id="" method="GET" action="{$vars['basepath']}/suppressionItem">
+                            <label>Supprimer l'item de la liste : </label>
+                            <button type="" name="" value="">Supprimer</button>
+                        </form>
+                    END;
+                }
+                //on assemble le tout 
+                $a = $a . <<<END
+                    $c
+                    <p>======</p>
                 END;
             }
-            //on assemble le tout 
-            $a = $a . <<<END
-                $c
-                <p>======</p>
-            END;
         }
         
 
