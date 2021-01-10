@@ -67,8 +67,9 @@ $app->post('/compte/{userid}', function(Request $rq, Response $rs, array $args):
 
 $app->post('/liste/{no}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
-    return $c->formuModificationInfosListe($rq, $rs, $args);
+    return $c->formuModificationListe($rq, $rs, $args);
 });
+
 
 
 $app->run();

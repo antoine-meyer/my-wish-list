@@ -42,7 +42,6 @@ class ViewCreateur{
 
 
         //modifications des informations générales de la liste
-            //<p>formualire pour modifier les informations, aucun champs n'est required</p>
         $a = $a . <<<END
             <h2><u>modifications des informations</u></h2>
             <p>Remplisser ce formulaire pour modifier les informations générales de la liste :</p>
@@ -51,7 +50,7 @@ class ViewCreateur{
                     <input type="text" name="title" value="" placeholder="Le titre">
                     <input type="text" name="description" value="" placeholder="La description">
                     <input type="date" name="date" value="" placeholder="La date">
-                    <button type="" name="" value="OK">Modifier</button>
+                    <button type="" name="bouton_modifierListe" value="">Modifier</button>
                 </form>
             </section>
         END;
@@ -87,9 +86,9 @@ class ViewCreateur{
                             <button type="" name="" value="">Modifier</button>
                         </form>
                         <br>
-                        <form id="" method="GET" action="{$vars['basepath']}/suppressionItem">
+                        <form id="" method="POST" action="">
                             <label>Supprimer l'item de la liste : </label>
-                            <button type="" name="" value="">Supprimer</button>
+                            <button type="submit" name="bouton_supprimerItem" value="">Supprimer</button>
                         </form>
                     END;
                 }
@@ -103,16 +102,22 @@ class ViewCreateur{
         
 
         //ajout d'un item avec formulaire de création d'un item
-            //nom
-            //prix
-            //url pour image
         $a = $a . <<<END
             <h2><u>Ajouter un item</u></h2>
-            <p>Remplissez ce formulaire pour ajouter un item à cette liste. Si vous avez mal remplit pas d'inquiétude : vous pouvez toujours modifier les informations d'un l'item.</p>
+            <p>Remplissez ce formulaire pour ajouter un item à cette liste.</p>
+            <p>PAS DE PANIQUE si vous avez mal remplit : vous pouvez toujours modifier les informations d'un item non réservé.</p>
             <section class="formulaire-liste">
-                <form id="" method="" action="">
-                    <label>CHAMP A FAIRE : </label><br><br><br><br><br><br>
-                    <button type="" name="" value="OK">Ajouter</button>
+                <form id="" method="POST" action="">
+                    <label>Nom : </label>
+                    <input type="text" name="newItem_Nom" value="" placeholder="Le nom de l'item" required>
+                    <br>
+                    <label>Description : </label>
+                    <input type="text" name="newItem_Description" value="" placeholder="La description de l'item" required>
+                    <br>
+                    <label>Prix : </label>
+                    <input type="number" name="newItem_Prix" value="" placeholder="Le prix de votre item" required>
+                    <br>
+                    <button type="submit" name="bouton_newItem" value="">Ajouter</button>
                 </form>
             </section>
         END;

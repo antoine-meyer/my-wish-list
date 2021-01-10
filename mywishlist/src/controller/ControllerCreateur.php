@@ -80,7 +80,55 @@ class ControllerCreateur {
 
 
 
-    public function formuModificationInfosListe($rq, $rs, $args){
+    public function formuModificationListe($rq, $rs, $args){
+        //formualire pour ajouter un item
+        if($rq->getParsedBody()['bouton_newItem'] === ""){
+            //print("nouveau item");
+            $rs = $this->gestionAjoutItem($rq, $rs, $args);
+        }
+        //formulaire pour modifier une liste
+        if($rq->getParsedBody()['bouton_modifierListe'] === ""){
+            //print("modif liste");
+            $rs = $this->gestionModificationInformationsListe($rq, $rs, $args);
+        }
+        //formulaire pour supprimer un item
+        if($rq->getParsedBody()['bouton_supprimerItem'] === ""){
+            print("supprimer item");
+
+        }
+        return $rs;       
+    }
+
+
+
+    public function gestionAjoutItem($rq, $rs, $args){
+        //on recupère les données
+        $liste_id = $args['no'];
+        $nom = $rq->getParsedBody()['newItem_Nom'];
+        $des = $rq->getParsedBody()['newItem_Description'];
+        $tarif = $rq->getParsedBody()['newItem_Prix']; 
+        $reserve = 0;
+
+        //filtres
+        $nomFiltre = filter_var($nom, FILTER_SANITIZE_STRING);
+        $desFiltre = filter_var($des, FILTER_SANITIZE_STRING);
+
+        //insertions
+        $newItem = new \mywishlist\models\Item;
+        $newItem->liste_id = $liste_id;
+        $newItem->nom = $nomFiltre;
+        $newItem->descr = $desFiltre;
+        $newItem->tarif = $tarif;
+        $newItem->reserve = $reserve;
+        $newItem->save();
+
+        //renvoie de la vue
+        $rs = $this->getListeCreateur($rq, $rs, $args);
+        return $rs;
+    }
+    
+
+    public function gestionModificationInformationsListe($rq, $rs, $args){
         try{
             //on recupère les données
             $titre = $rq->getParsedBody()['title'];
