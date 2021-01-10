@@ -78,6 +78,22 @@ class ControllerCreateur {
         return $rs;
     }
 
+
+
+    public function formuModificationInfosListe($rq, $rs, $args){
+        //on recupère les données
+        $titre = $rq->getParsedBody()['title'];
+        $des = $rq->getParsedBody()['description'];
+        $dat = $rq->getParsedBody()['date'];
+
+
+
+        //renvoie de la vue
+        $rs->getBody()->write("Blablz-".$titre."-".$des."-".$dat."-");
+        return $rs;
+    }
+
+
     public function getListeCreateur($rq, $rs, $args){
         try{
             //on recupere le chemin de base

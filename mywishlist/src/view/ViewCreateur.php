@@ -40,18 +40,22 @@ class ViewCreateur{
             <p>Expiration : {$liste->expiration}</p>
         END;
 
+
         //modifications des informations générales de la liste
-            //<p>formualire poiur modifier les informations, aucun champs n'est required</p>
+            //<p>formualire pour modifier les informations, aucun champs n'est required</p>
         $a = $a . <<<END
             <h2><u>modifications des informations</u></h2>
-            <p>Remplissez ce </p>
+            <p>Remplisser ce formulaire pour modifier les informations générales de la liste :</p>
             <section class="formulaire-liste">
-                <form id="" method="" action="">
-                    <label>CHAMP A FAIRE : </label><br><br><br><br><br><br>
+                <form id="" method="POST" action="">
+                    <input type="text" name="title" value="" placeholder="Le titre">
+                    <input type="text" name="description" value="" placeholder="La description">
+                    <input type="date" name="date" value="" placeholder="La date">
                     <button type="" name="" value="OK">Modifier</button>
                 </form>
             </section>
         END;
+
 
         //listes des items de la liste
             //il y a un bouton modifier qui envoie vers /item/x?token=... avec une page juste informations de l'item et formulaire pour modifier l'item et un bouton retour
@@ -108,6 +112,8 @@ class ViewCreateur{
         
 
         //D'AUTRES TRUCS VOIR SUJET !
+
+
 
         //page générale
         $html = <<<END
