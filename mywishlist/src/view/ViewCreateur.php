@@ -50,7 +50,7 @@ class ViewCreateur{
                     <input type="text" name="title" value="" placeholder="Le titre">
                     <input type="text" name="description" value="" placeholder="La description">
                     <input type="date" name="date" value="" placeholder="La date">
-                    <button type="" name="bouton_modifierListe" value="">Modifier</button>
+                    <button type="submit" name="bouton_modifierListe" value="">Modifier</button>
                 </form>
             </section>
         END;
@@ -88,7 +88,7 @@ class ViewCreateur{
                         <br>
                         <form id="" method="POST" action="">
                             <label>Supprimer l'item de la liste : </label>
-                            <button type="submit" name="bouton_supprimerItem" value="">Supprimer</button>
+                            <button type="submit" name="bouton_supprimerItem" value="item:{$i->id}">Supprimer</button>
                         </form>
                     END;
                 }

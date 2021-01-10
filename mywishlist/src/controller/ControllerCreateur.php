@@ -4,6 +4,7 @@ namespace mywishlist\controller;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \mywishlist\models\Item as Item;
 use \mywishlist\models\Liste as Liste;
 use \mywishlist\models\Compte as Compte;
 use \mywishlist\view\ViewErreur as ViewErreur;
@@ -92,13 +93,28 @@ class ControllerCreateur {
             $rs = $this->gestionModificationInformationsListe($rq, $rs, $args);
         }
         //formulaire pour supprimer un item
-        if($rq->getParsedBody()['bouton_supprimerItem'] === ""){
-            print("supprimer item");
-
+        //si le début de la valeur du bouton est item alors c'est ok !
+        if(substr($rq->getParsedBody()['bouton_supprimerItem'],0, 5) === "item:"){
+            //print("supprimer item");
+            $rs = $this->gestionSupprimerItem($rq, $rs, $args);
         }
         return $rs;       
     }
 
+
+    public function gestionSupprimerItem($rq, $rs, $args){
+        //numéro de l'item à supprimer de la table
+        $numItemASuppr = substr($rq->getParsedBody()['bouton_supprimerItem'],5,7); 
+        print($numItemASuppr);
+        //on récupère l'item
+        $item = Item::where('id','=', $numItemASuppr)->firstOrFail();
+        print($item);
+        //on supprimer l'item de la table
+        $item->delete();
+        //renvoie de la vue
+        $rs = $this->getListeCreateur($rq, $rs, $args);
+        return $rs;
+    }
 
 
     public function gestionAjoutItem($rq, $rs, $args){
