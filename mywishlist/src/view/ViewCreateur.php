@@ -35,9 +35,9 @@ class ViewCreateur{
         //informations de la liste et modification possible
         $a = $a . <<<END
             <h2><u>informations de la liste</u></h2>
-            <p>Titre : {$liste->titre}</p>
-            <p>Description : {$liste->description}</p>
-            <p>Expiration : {$liste->expiration}</p>
+            <p><b>Titre : </b>{$liste->titre}</p>
+            <p><b>Description : </b>{$liste->description}</p>
+            <p><b>Expiration : </b>{$liste->expiration}</p>
         END;
 
 
@@ -60,21 +60,35 @@ class ViewCreateur{
         //listes des items de la liste
             //il y a un bouton modifier qui envoie vers /item/x?token=... avec une page juste informations de l'item et formulaire pour modifier l'item et un bouton retour
             //il y a un bouton supprimer
-        $a = $a . <<<END
-            <h2><u>LES ITEMS DE LA LISTE</u></h2>
-            <p>Item 1</p>
-            <button type="" name="" value="OK">Modifier</button>
-            <button type="" name="" value="OK">Supprimer</button>
-            <br><br>
-            <p>Item 2</p>
-            <button type="" name="" value="OK">Modifier</button>
-            <button type="" name="" value="OK">Supprimer</button>
-            <br><br>
-            <p>Item blabla</p>
-            <button type="" name="" value="OK">Modifier</button>
-            <button type="" name="" value="OK">Supprimer</button>
-            <br><br>
-        END;
+        $a = $a . "<h2><u>LES ITEMS DE LA LISTE</u></h2>";
+        $a = $a . "<p>======</p>";
+        //on récupère les items associés
+        $items = $liste->items()->get();
+        //on affiche les items
+        foreach($items as $i){
+            $a = $a . <<<END
+                <p><b>Nom : </b>{$i->nom}</p>
+                <p><b>Description : </b>{$i->descr}</p>
+                <p><b>Prix : </b>{$i->tarif}</p>
+            END;
+            //on regarde si l'item est réservé on ne peut plus le modifier
+            $c = "";
+            if($i->reserve === 1){
+                $c = "<p>L'item est <b>réservé</b> : vous ne pouvez plus le modifier ni le supprimer.</p>";
+            }else{
+                $c = $c . <<<END
+                    <p>L'item n'est <b>pas encore réservé</b> : modifier ou supprimer.</p>
+                    <button type="" name="" value="OK">Modifier</button>
+                    <button type="" name="" value="OK">Supprimer</button>
+                END;
+            }
+            //on assemble le tout 
+            $a = $a . <<<END
+                $c
+                <p>======</p>
+            END;
+        }
+        
 
         //ajout d'un item avec formulaire de création d'un item
             //nom
