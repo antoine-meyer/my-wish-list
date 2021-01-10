@@ -81,15 +81,52 @@ class ControllerCreateur {
 
 
     public function formuModificationInfosListe($rq, $rs, $args){
-        //on recupère les données
-        $titre = $rq->getParsedBody()['title'];
-        $des = $rq->getParsedBody()['description'];
-        $dat = $rq->getParsedBody()['date'];
-
-
-
-        //renvoie de la vue
-        $rs->getBody()->write("Blablz-".$titre."-".$des."-".$dat."-");
+        try{
+            //on recupère les données
+            $titre = $rq->getParsedBody()['title'];
+            $des = $rq->getParsedBody()['description'];
+            $dat = $rq->getParsedBody()['date'];
+            //si tous les champs sont vides on renvoie la vue car rien a faire
+            if($titre === "" && $des === "" && $dat === ""){
+                //on renvoie la vue de la même chose ...
+                $rs = $this->getListeCreateur($rq, $rs, $args);
+            }else{
+                //on doit modifier quelque chose au moins OU plusieurs 
+                $modifListe = Liste::where('no','=', $args['no'])->firstOrFail();
+                $t = $rq->getQueryParam('token', null);
+                //on regarde si le token est bon sinon erreur
+                if($t === $modifListe->tokenDeModification){
+                    //le titre
+                    if($titre !== ""){
+                        //filtres
+                        $titreFiltre = filter_var($titre, FILTER_SANITIZE_STRING);
+                        //insertion
+                        $modifListe->titre = $titreFiltre;
+                    }
+                    //la description
+                    if($des !== ""){
+                        //filtres
+                        $descrFiltre = filter_var($des, FILTER_SANITIZE_STRING);
+                        //insertion
+                        $modifListe->description = $descrFiltre;
+                    }
+                    //la date
+                    if($dat !== ""){
+                        //insertion
+                        $modifListe->expiration = $dat;
+                    }
+                    //sauvegarde
+                    $modifListe->save();
+                    //renvoie la vue
+                    $rs = $this->getListeCreateur($rq, $rs, $args);
+                }else{
+                    //erreur si mauvais token
+                    $rs = $this->affiche_page_erreur($rq, $rs, $args);
+                }
+            }
+        }catch(ModelNotFoundException $e){
+            $rs = $this->affiche_page_erreur($rq, $rs, $args);
+        }
         return $rs;
     }
 
