@@ -91,11 +91,9 @@ class ViewCreateur{
                 }else{
                     $c = $c . <<<END
                         <p>L'item n'est <b>pas encore réservé</b> !</p>
-                        <form id="" method="" action="{$vars['basepath']}/items/{$i->id}">
-                            <label>Modifier l'item : </label>
-                            <button type="" name="" value="">Modifier</button>
-                        </form>
-                        <br>
+                        <p>Modifier l'item :
+                            <a class='boutonModifier' href="{$vars['basepath']}/items/{$i->id}?token={$liste->tokenDeModification}">Modifier</a>
+                        </p>
                         <form id="" method="POST" action="">
                             <label>Supprimer l'item de la liste : </label>
                             <button type="submit" name="bouton_supprimerItem" value="{$i->id}">Supprimer</button>
@@ -182,6 +180,18 @@ class ViewCreateur{
         END;
         return $html;
     }
+
+
+
+    public function renderUnItem(array $vars){
+        $html = <<<END
+            <p>ITEM</p>
+
+        END;
+        return $html;
+    }
+
+
 
     public function renderListes(array $vars){
         //on recupere les listes

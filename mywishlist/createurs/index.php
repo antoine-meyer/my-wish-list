@@ -57,6 +57,11 @@ $app->get('/liste/{no}', function(Request $rq, Response $rs, array $args): Respo
     return $c->getListeCreateur($rq, $rs, $args);
 });
 
+$app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerCreateur($this);
+    return $c->getItemCreateur($rq, $rs, $args);
+});
+
 
 
 //post

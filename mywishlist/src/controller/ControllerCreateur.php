@@ -223,7 +223,7 @@ class ControllerCreateur {
             $t = $rq->getQueryParam('token', null);
             //on recupere une liste
             $liste = Liste::where('no','=', $args['no'])->firstOrFail();
-            //on regarde si le numéro de token et le numéro de compte correspond
+            //on regarde si le numéro de token et le token de liste correspond
             if($liste->tokenDeModification === $t){
                 //on renvoie la vue
                 $v = new ViewCreateur([$liste]);    
@@ -232,12 +232,43 @@ class ControllerCreateur {
                 //sinon erreur
                 $rs = $this->affiche_page_erreur($rq, $rs, $args);
             }
-        
-        
         }catch(ModelNotFoundException $e){
             $rs = $this->affiche_page_erreur($rq, $rs, $args);
         }
         return $rs;
     }
+
+
+
+
+
+    public function getItemCreateur($rq, $rs, $args){
+        try{
+            //on recupere le chemin de base
+            $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
+            //on recupere le token de modification
+            $t = $rq->getQueryParam('token', null);
+            //on recupere un item
+            $item = Item::where('id','=', $args['id'])->firstOrFail();
+            //on récupère la liste associée
+            $liste = $item->liste()->get()[0];
+            //on regarde si le token en paramètre vaut la tokenModification de la liste associée à l'item
+            if($liste->tokenDeModification === $t){
+                //on renvoie la vue
+                $v = new ViewCreateur([$item]);    
+                $rs->getBody()->write($v->renderUnItem($htmlvars));
+            }else{
+                //sinon erreur
+                $rs = $this->affiche_page_erreur($rq, $rs, $args);
+            }
+        }catch(ModelNotFoundException $e){
+            $rs = $this->affiche_page_erreur($rq, $rs, $args);
+        }
+        return $rs;
+    }
+
+
+
+
 
 }
