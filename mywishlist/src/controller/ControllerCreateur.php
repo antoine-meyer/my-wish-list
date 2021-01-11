@@ -98,6 +98,11 @@ class ControllerCreateur {
             //print("supprimer item");
             $rs = $this->gestionSupprimerItem($rq, $rs, $args);
         }
+        //formulaire pour partager la liste
+        if($rq->getParsedBody()['bouton_partagerListe'] === ""){
+            print("partage de la liste ");
+        }
+        //renvoi du résultat final
         return $rs;       
     }
 
