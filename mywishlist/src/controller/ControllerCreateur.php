@@ -100,7 +100,17 @@ class ControllerCreateur {
         }
         //formulaire pour partager la liste
         if($rq->getParsedBody()['bouton_partagerListe'] === ""){
-            print("partage de la liste ");
+            //print("partage de la liste ");
+            //on récupère la liste
+            $modifListe = Liste::where('no','=', $args['no'])->firstOrFail();
+            //on lui donne un token généré aléatoirement
+            $tok = random_bytes(10);
+            $tok = bin2hex($tok);
+            $modifListe->token = $tok;
+            //on enregistre la modification
+            $modifListe->save();
+            //on renvoie la vue
+            $rs = $this->getListeCreateur($rq, $rs, $args);
         }
         //renvoi du résultat final
         return $rs;       
