@@ -74,6 +74,16 @@ class ViewCreateur{
                     <p><b>Description : </b>{$i->descr}</p>
                     <p><b>Prix : </b>{$i->tarif}€</p>
                 END;
+                //si l'URL externe existe alors on l'affiche ici
+                if($i->url !== NULL){
+                    $a = $a . <<<END
+                        <p><b>URL externe : </b><a class="lienExterne" href={$i->url} target=blanck>{$i->url}</a></p>
+                    END;
+                }else{
+                    $a = $a . <<<END
+                        <p><b>URL externe : </b>aucune URL renseignée</p>
+                    END;
+                }
                 //on regarde si l'item est réservé on ne peut plus le modifier
                 $c = "";
                 if($i->reserve === 1){
@@ -88,7 +98,7 @@ class ViewCreateur{
                         <br>
                         <form id="" method="POST" action="">
                             <label>Supprimer l'item de la liste : </label>
-                            <button type="submit" name="bouton_supprimerItem" value="item:{$i->id}">Supprimer</button>
+                            <button type="submit" name="bouton_supprimerItem" value="{$i->id}">Supprimer</button>
                         </form>
                     END;
                 }
@@ -116,6 +126,11 @@ class ViewCreateur{
                     <br>
                     <label>Prix : </label>
                     <input type="number" name="newItem_Prix" value="" placeholder="Le prix de votre item" required>
+                    <br>
+                    <p>Vous pouvez fournir l'URL d'une page externe qui détaille le produit (champ optionnel).</p>
+                    <p>L'URL doit ressembler à : <b>https://exemple.com</b></p>
+                    <label>URL page externe : </label>
+                    <input type="url" name="newItem_URL" value="" placeholder="URL page externe">
                     <br>
                     <button type="submit" name="bouton_newItem" value="">Ajouter</button>
                 </form>

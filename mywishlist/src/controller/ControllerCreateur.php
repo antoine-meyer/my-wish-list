@@ -93,8 +93,8 @@ class ControllerCreateur {
             $rs = $this->gestionModificationInformationsListe($rq, $rs, $args);
         }
         //formulaire pour supprimer un item
-        //si le début de la valeur du bouton est item alors c'est ok !
-        if(substr($rq->getParsedBody()['bouton_supprimerItem'],0, 5) === "item:"){
+        //si le type de la valeur du bouton est string alors c'est ok !
+        if(gettype($rq->getParsedBody()['bouton_supprimerItem']) === "string"){
             //print("supprimer item");
             $rs = $this->gestionSupprimerItem($rq, $rs, $args);
         }
@@ -104,11 +104,11 @@ class ControllerCreateur {
 
     public function gestionSupprimerItem($rq, $rs, $args){
         //numéro de l'item à supprimer de la table
-        $numItemASuppr = substr($rq->getParsedBody()['bouton_supprimerItem'],5,7); 
-        print($numItemASuppr);
+        $numItemASuppr = $rq->getParsedBody()['bouton_supprimerItem']; 
+        //print($numItemASuppr);
         //on récupère l'item
         $item = Item::where('id','=', $numItemASuppr)->firstOrFail();
-        print($item);
+        //print($item);
         //on supprimer l'item de la table
         $item->delete();
         //renvoie de la vue
@@ -123,11 +123,13 @@ class ControllerCreateur {
         $nom = $rq->getParsedBody()['newItem_Nom'];
         $des = $rq->getParsedBody()['newItem_Description'];
         $tarif = $rq->getParsedBody()['newItem_Prix']; 
+        $url = $rq->getParsedBody()['newItem_URL'];
         $reserve = 0;
 
         //filtres
         $nomFiltre = filter_var($nom, FILTER_SANITIZE_STRING);
         $desFiltre = filter_var($des, FILTER_SANITIZE_STRING);
+        $urlFiltre = filter_var($url, FILTER_SANITIZE_STRING);
 
         //insertions
         $newItem = new \mywishlist\models\Item;
@@ -136,6 +138,9 @@ class ControllerCreateur {
         $newItem->descr = $desFiltre;
         $newItem->tarif = $tarif;
         $newItem->reserve = $reserve;
+        if($urlFiltre!== ""){
+            $newItem->url = $urlFiltre;
+        }
         $newItem->save();
 
         //renvoie de la vue

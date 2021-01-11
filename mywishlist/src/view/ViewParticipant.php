@@ -85,12 +85,19 @@ class ViewParticipant{
             $reserve = "Non réservé";
             $messReser = "";
         }
+        //on regarde si l'item à une URL
+        if($item->url !==NULL){
+            $u = "<a href={$item->url} target=blanck>".$item->url."</a>";
+        }else{
+            $u = "aucune URL renseignée";
+        }
         //gestion de l'affichage
         $html = <<<END
         <section class="contentItemAlone">
             <h3><u>Numéro de l'item :</u> {$item->id}</h3>
             <h3><u>Nom de l'item :</u> {$item->nom}</h3>
             <h3><u>Description :</u> {$item->descr}</h3>
+            <h3><u>URL externe :</u> {$u}</h3>
             <img src="/mywishlist/web/img/{$item->img}" height=100>
             <h3><u>Prix :</u> {$item->tarif}€</h3>
             <h3><u>État :</u> {$reserve}</h3>

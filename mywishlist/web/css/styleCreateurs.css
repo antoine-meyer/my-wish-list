@@ -37,3 +37,9 @@ formualire de création d'une nouvelle liste
     padding: 10px;
     background-color: #222;
 }
+/*
+couleur des liens cliquables
+*/
+.lienExterne{
+    color: yellow;
+}
