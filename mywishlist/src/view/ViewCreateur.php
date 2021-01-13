@@ -189,8 +189,17 @@ class ViewCreateur{
         $it = $this->model[0];
 
         //bouton retour vers la liste associée
-
+        $a = $a . <<<END
+            <a href='' class=''>
+                <button type="" name="" value="OK">Retour vers la liste associée</button>
+            </a>
+        END;
         //bouton retour vers le compte associée à la liste de cette item
+        $a = $a . <<<END
+            <a href='' class=''>
+                <button type="" name="" value="OK">Retour vers le compte</button>
+            </a>
+        END;
             
         //informations sur l'item
         $a = $a . <<<END
