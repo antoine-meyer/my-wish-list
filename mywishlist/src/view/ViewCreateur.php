@@ -184,9 +184,90 @@ class ViewCreateur{
 
 
     public function renderUnItem(array $vars){
-        $html = <<<END
-            <p>ITEM</p>
 
+        //variable pour stocker l'item
+        $it = $this->model[0];
+
+        //bouton retour vers la liste associée
+
+        //bouton retour vers le compte associée à la liste de cette item
+            
+        //informations sur l'item
+        $a = $a . <<<END
+            <h2><u>Informations sur l'item</u></h2>
+            <p><b>Nom :</b> {$it->nom}</p>
+            <p><b>Description :</b> {$it->descr}</p>
+            <p><b>Prix :</b> {$it->tarif}€</p>
+        END;
+        //si on n'a pas d'url
+        if($it->url === NULL){
+            $a = $a . <<<END
+            <p><b>Url externe :</b> aucune</p>
+            END;
+        }else{
+            $a = $a . <<<END
+            <p><b>Url externe :</b> {$it->url}</p>
+            END;
+        }
+        //si on n'a pas d'img
+        if($it->img === NULL){
+            $a = $a . <<<END
+            <p><b>Image :</b> aucune</p>
+            END;
+        }else{
+            $a = $a . <<<END
+            <p><b>Image :</b> {$it->img}</p>
+            <img src="/mywishlist/web/img/{$it->img}" height=100>
+            <p>BOUTON SUPPRIME NON FONCTIONNEL</p>
+            <button type="" name="" value="">Supprimer l'image</button>
+            END;
+        }
+
+        //formulaire pour modifier les informations
+        $a = $a . <<<END
+            <h2><u>Modifier l'item</u></h2>
+            <p>Remplisser ce formulaire pour modifier les informations générales de l'item :</p>
+            <section class="">
+                <form id="" method="POST" action="">
+                    <input type="" name="" value="" placeholder="Nouveau nom"><br>
+                    <input type="" name="" value="" placeholder="Nouvelle description"><br>
+                    <input type="" name="" value="" placeholder="Nouveau prix"><br>
+                    <input type="" name="" value="" placeholder="Nouvelle URL externe"><br>
+                    <button type="submit" name="" value="">Modifier</button>
+                </form>
+            </section>
+        END;
+
+        //rajouter une image à l'item
+        $a = $a . <<<END
+            <h2><u>Rajouter ou modifier une image à l'item</u></h2>
+            <section class="">
+                <form id="" method="POST" action="">
+                    <p>Pour ajouter une image à l'item ou la modifier vous avez 2 possibilitées :</p>
+                    <p><i>- fournir une URL d'une image externe ou</i></p>
+                    <p><i>- fournir le chemin relatif d'une image présente dans le dossier web/img</i></p>
+                    <input type="" name="" value="" placeholder="Modifier / Nouvelle image"><br>
+                    <button type="submit" name="" value="">Modifier</button>
+                </form>
+            </section>
+        END;
+
+        //reponse finale
+        $html = <<<END
+        <!DOCTYPE html>
+        <html lang="fr">
+            <head>
+                <meta charset="UTF-8">
+                <title>Application Wishlist</title>
+                <link rel="stylesheet" href="{$vars['basepath']}/../web/css/styleCreateurs.css">
+            </head>
+            <body>
+                <h1>Application Wishlist</h1>
+                <h2><u>Créateurs</u></h2>
+                $a
+                <h2>Fin de page</h2>
+            </body>
+        </html>
         END;
         return $html;
     }
