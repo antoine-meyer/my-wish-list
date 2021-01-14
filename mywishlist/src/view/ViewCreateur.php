@@ -74,6 +74,18 @@ class ViewCreateur{
                     <p><b>Description : </b>{$i->descr}</p>
                     <p><b>Prix : </b>{$i->tarif}€</p>
                 END;
+                //si on a une image on met le lien sinon rien
+                if($i->img !== NULL){
+                    $a = $a . <<<END
+                        <p><b>Image : </b>{$i->img}</p>
+                    END;
+                }else{
+                    $a = $a . <<<END
+                        <p><b>Image : </b> aucune</p>
+                    END;
+                }
+
+
                 //si l'URL externe existe alors on l'affiche ici
                 if($i->url !== NULL){
                     $a = $a . <<<END
@@ -241,8 +253,9 @@ class ViewCreateur{
             $a = $a . <<<END
             <p><b>Image :</b> {$it->img}</p>
             <img src="/mywishlist/web/img/{$it->img}" height=100>
-            <p>BOUTON SUPPRIME NON FONCTIONNEL</p>
-            <button type="" name="" value="">Supprimer l'image</button>
+            <form id="" method="POST" action="">
+                <button type="submit" name="bouton_supprimerUneImage" value="" >Supprimer l'image</button>
+            </form>
             END;
         }
 

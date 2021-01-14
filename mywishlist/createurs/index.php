@@ -75,6 +75,11 @@ $app->post('/liste/{no}', function(Request $rq, Response $rs, array $args): Resp
     return $c->formuModificationListe($rq, $rs, $args);
 });
 
+$app->post('/items/{id}', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerCreateur($this);
+    return $c->formuModificationItem($rq, $rs, $args);
+});
+
 
 
 $app->run();

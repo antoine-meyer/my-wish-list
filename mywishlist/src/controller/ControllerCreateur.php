@@ -80,6 +80,15 @@ class ControllerCreateur {
     }
 
 
+    public function formuModificationItem($rq, $rs, $args){
+        //formulaire pour supprimer une image d'un item
+        if($rq->getParsedBody()['bouton_supprimerUneImage'] === ""){
+            $rs = $this->gestionSupprimerUneImage($rq, $rs, $args);
+        }
+        //renvoi du résultat final
+        return $rs; 
+    }
+
 
     public function formuModificationListe($rq, $rs, $args){
         //formualire pour ajouter un item
@@ -114,6 +123,21 @@ class ControllerCreateur {
         }
         //renvoi du résultat final
         return $rs;       
+    }
+
+
+    public function gestionSupprimerUneImage($rq, $rs, $args){
+        //on récupère l'id de l'item
+        $a = $args['id'];
+        //on récupère l'item
+        $item = Item::where('id','=', $a)->firstOrFail();
+        //on remplace son champ img par NULL
+        $item->img = NULL;
+        //on sauvegarde
+        $item->save();
+        //renvoie de la vue
+        $rs = $this->getItemCreateur($rq, $rs, $args);
+        return $rs;
     }
 
 
