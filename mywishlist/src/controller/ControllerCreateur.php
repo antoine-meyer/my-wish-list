@@ -104,7 +104,7 @@ class ControllerCreateur {
         //si le champ est une url externe alors on regarde si elle finit par .png ou .jpg 
         //OU
         //si c'est une image en .jpg on regarde si elle est dans nos données
-        if(parse_url($a)['host'] !==NULL || strripos($a, '.jpg')){
+        if(parse_url($a)['host'] !== NULL || strripos($a, '.jpg')){
             //on récupère l'item
             $item = Item::where('id','=', $args['id'])->firstOrFail();
             //on ajoute à la BDD

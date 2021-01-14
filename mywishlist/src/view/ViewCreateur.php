@@ -282,6 +282,7 @@ class ViewCreateur{
                     <p>Pour ajouter une image à l'item ou la modifier vous avez 2 possibilitées :</p>
                     <p><i>- fournir une URL d'une image externe (du type https://blabla.fr) ou</i></p>
                     <p><i>- fournir le chemin relatif d'une image présente dans le dossier web/img (exemple: blabla.jpg)</i></p>
+                    <p>Attention : si l'URL externe n'accepte pas le hot-linking ou si le chemin relatif n'existe pas, il n'y aura pas d'erreur mais vous ne verrez aucune image. C'est votre responsabilité en temps que créateurs de listes (et parce que le dev a des choses plus importantes à faire #_#).</p>
                     <input type="text" name="url_chemin_realtif_image" value="" placeholder="Modifier / Nouvelle image" required><br>
                     <button type="submit" name="bouton_modifierImage" value="">Modifier</button>
                 </form>
