@@ -200,9 +200,15 @@ class ViewCreateur{
                 <button type="" name="" value="OK">Retour vers la liste associée</button>
             </a>
         END;
+
+        //on récupère le compte de la liste
+        $compte = $liste->compte()->get()[0];
+        $id = $compte->id;
+        $t = $compte->tokenmodification;
+
         //bouton retour vers le compte associée à la liste de cette item
         $a = $a . <<<END
-            <a href='' class=''>
+            <a href='{$vars['basepath']}/compte/{$id}?token={$t}' class=''>
                 <button type="" name="" value="OK">Retour vers le compte</button>
             </a>
         END;
