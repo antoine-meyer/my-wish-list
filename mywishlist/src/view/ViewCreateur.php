@@ -92,7 +92,9 @@ class ViewCreateur{
                     $c = $c . <<<END
                         <p>L'item n'est <b>pas encore réservé</b> !</p>
                         <p>Modifier l'item :
-                            <a class='boutonModifier' href="{$vars['basepath']}/items/{$i->id}?token={$liste->tokenDeModification}">Modifier</a>
+                            <a class='boutonModifier' href="{$vars['basepath']}/items/{$i->id}?token={$liste->tokenDeModification}">
+                                <button type="" name="" value="OK">Modifier</button>
+                            </a>
                         </p>
                         <form id="" method="POST" action="">
                             <label>Supprimer l'item de la liste : </label>
