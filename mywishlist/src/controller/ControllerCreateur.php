@@ -85,8 +85,36 @@ class ControllerCreateur {
         if($rq->getParsedBody()['bouton_supprimerUneImage'] === ""){
             $rs = $this->gestionSupprimerUneImage($rq, $rs, $args);
         }
+        //formulaire pour rajouter ou modifier une image
+        if($rq->getParsedBody()['bouton_modifierImage'] === ""){
+            $rs = $this->gestionModifierImageItem($rq, $rs, $args);
+        }
+
+        
         //renvoi du résultat final
         return $rs; 
+    }
+
+
+
+    public function gestionModifierImageItem($rq, $rs, $args){
+
+        //on récupère l'information entrée
+        $a = $rq->getParsedBody()['url_chemin_realtif_image'];
+        //si le champ est une url externe alors on regarde si elle finit par .png ou .jpg 
+        //OU
+        //si c'est une image en .jpg on regarde si elle est dans nos données
+        if(parse_url($a)['host'] !==NULL || strripos($a, '.jpg')){
+            //on récupère l'item
+            $item = Item::where('id','=', $args['id'])->firstOrFail();
+            //on ajoute à la BDD
+            $item->img = $a;
+            //on save
+            $item->save();
+        }
+        //renvoie de la vue
+        $rs = $this->getItemCreateur($rq, $rs, $args);
+        return $rs;
     }
 
 
