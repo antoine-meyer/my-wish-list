@@ -196,6 +196,14 @@ class ViewParticipant{
         
         //on recupere les items
         $items = $this->model[1];
+        //si pas d'item alors message cool
+        if(count($items) === 0){
+            $html = $html . <<<END
+                <p>Nous sommes désolés mais il n'y a pour le moment aucuns items associés à cette liste.</h2>
+            END;
+        }
+
+
         //on check tous les items
         foreach($items as $i){
             $html = $html . $this->htmlUnItemDansListe($i, $v);
