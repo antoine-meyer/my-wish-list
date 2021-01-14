@@ -188,9 +188,15 @@ class ViewCreateur{
         //variable pour stocker l'item
         $it = $this->model[0];
 
+        //id de la liste associée à l'item
+        $id = $it->liste_id;
+        //token de la liste avec cette id
+        $liste = $it->liste()->get()[0];
+        $t = $liste->tokenDeModification;
+
         //bouton retour vers la liste associée
         $a = $a . <<<END
-            <a href='' class=''>
+            <a href='{$vars['basepath']}/liste/{$id}?token={$t}' class=''>
                 <button type="" name="" value="OK">Retour vers la liste associée</button>
             </a>
         END;
