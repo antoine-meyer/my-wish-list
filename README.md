@@ -15,3 +15,5 @@ Groupe de 4 étudiants :
 
 Rendu :
 Le projet a été rendu le 20 Janvier 2021.
+
+Installations et lancement du projet : lisez le fichier indications-installation.txt présent dans le répertoire my-wish-list

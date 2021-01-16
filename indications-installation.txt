@@ -1,0 +1,39 @@
+Indications permettant l'installation du projet sur une machine quelconque :
+
+1 - faire une copie du répertoire my-wish-list sur votre machine grâce aux commandes git
+
+2 - aller dans votre gestionnaire de base de donnée (MySql, Adminer ou autres), choisir une BDD dans laquelle vous voulez créer les tables et que vous voulez utiliser pour l'exécution du projet (retenir le nom de cette base pour la suite)
+
+3 - exécuter le code contenu dans le fichier donnees.txt (ce fichier contient tout les requêtes SQL pour créer les tables et insérer les données utilent à la bonne visualisation du projet) dans la base choisie en étape 2
+
+4 - la connection a la base de données se fait de manière automatique : vous devez néanmoins renseigner vos informations privées concernant la BDD
+
+5 - pour ce faire vous allez créer un nouveau fichier dans /mywishlist/src/conf qui s'appelera dbconf.ini
+
+6 - dans ce fichier vous allez copié collé le texte suivant :
+
+	driver=mysql
+	username=VOTRE-NOM
+	password=VOTRE-MDP
+	host=localhost
+	database=VOTRE-BDD
+	charset=utf8
+	collation=utf8_unicode_ci
+	
+7 - vous devez remplacer VOTRE-NOM, VOTRE-MDP et VOTRE-BDD par respectivement votre nom de compte de la BDD, le mot de passe associé et le nom de la base dans laquelle vous avez réalisé l'étape 2 et 3 !
+
+8 - voilà tout est configuré pour le bon fonctionnement du projet
+
+9 - vous pouvez maintenant vous rendre dans votre éditeur de code et, à l'aide d'un terminal, lancer un serveur python avec la commande :
+
+	php -S localhost:8000
+	
+10 - rendez ensuite dans votre navigateur préférée aux url :
+
+	pour un participant = http://localhost:8000/mywishlist/participants/liste?token=nosecure1
+	
+	pour un créateur = http://localhost:8000/mywishlist/createurs/compte/1?token=tokenModif1
+	
+11 - vous avez normalement sous vos yeux le projet qui fonctionne bien ! 
+	
+	
