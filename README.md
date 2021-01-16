@@ -1,5 +1,5 @@
 # my-wish-list
-Projet programmation web su semestre 3 de l'année 2020 - 2021.
+Projet programmation web du semestre 3 de l'année 2020 - 2021.
 
 Titre :
 Le repository **my-wish-list** est une application en ligne pour créer, partager et gérer des listes de cadeaux.
@@ -12,3 +12,6 @@ Groupe de 4 étudiants :
 - Florian Grimmer
 - Léo Gross
 - Antoine Meyer 
+
+Rendu :
+Le projet a été rendu le 20 Janvier 2021.
