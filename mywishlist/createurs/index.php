@@ -67,7 +67,7 @@ $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Respo
 //post
 $app->post('/compte/{userid}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
-    return $c->forCreationNewListe($rq, $rs, $args);
+    return $c->postCompte($rq, $rs, $args);
 });
 
 $app->post('/liste/{no}', function(Request $rq, Response $rs, array $args): Response {

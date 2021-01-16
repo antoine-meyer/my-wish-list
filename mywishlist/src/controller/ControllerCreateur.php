@@ -158,6 +158,35 @@ class ControllerCreateur {
     }
 
 
+
+    public function supprimerListe($rq, $rs, $args){
+        $noListe = $rq->getParsedBody()['bouton_supprimerListe'];
+        //récupérer la liste correspondante
+        $lis = Liste::where('no','=', $noListe)->firstOrFail();
+        //supprimer la liste
+        $lis->delete();
+        //renvoie de la vue
+        $rs = $this->getCompteCreateur($rq, $rs, $args);
+        return $rs;
+    }
+
+
+    public function postCompte($rq, $rs, $args){
+        //formulaire pour supprimer une liste
+        if( gettype($rq->getParsedBody()['bouton_supprimerListe']) === "string" ){
+            $rs = $this->supprimerListe($rq, $rs, $args);
+        }
+        //formulaire pour ajouter une liste
+        if($rq->getParsedBody()['bouton_creationListe'] === ""){
+            //print("creation liste");
+            $rs = $this->forCreationNewListe($rq, $rs, $args);
+        }
+        //renvoi du résultat final
+        return $rs; 
+    }
+
+
+
     public function formuModificationListe($rq, $rs, $args){
         //formualire pour ajouter un item
         if($rq->getParsedBody()['bouton_newItem'] === ""){
@@ -177,7 +206,6 @@ class ControllerCreateur {
         }
         //formulaire pour partager la liste
         if($rq->getParsedBody()['bouton_partagerListe'] === ""){
-            //print("partage de la liste ");
             //on récupère la liste
             $modifListe = Liste::where('no','=', $args['no'])->firstOrFail();
             //on lui donne un token généré aléatoirement

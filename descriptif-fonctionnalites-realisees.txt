@@ -18,4 +18,6 @@ Extensions, fonctionnalités optionnelles et bonus :
 
 1 - sur une page du type /mywishlist/createurs/items/35?token=X, il y a un bouton retour vers la liste associée à l'item courant mais aussi un bouton retour vers le compte associée à la liste qui contient l'item courant
 
-2 - 
+2 - sur une page du type /mywishlist/createurs/liste/1?token=X, il y a le bouton supprimer la liste qui permet de supprimer la liste courante et de revenir à l'aperçu du compte
+
+

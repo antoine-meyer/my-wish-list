@@ -53,6 +53,11 @@ class ViewCreateur{
                     <button type="submit" name="bouton_modifierListe" value="">Modifier</button>
                 </form>
             </section>
+            <p style="color:red;"><b>ATTENTION BOUTON DANGEREUX : </b></p>
+
+            <form id="" method="POST" action="{$vars['basepath']}/compte/{$id}?token={$t}">
+                <button type="submit" name="bouton_supprimerListe" value={$liste->no}>Supprimer la liste</button>
+            </form>
         END;
 
 
@@ -366,7 +371,7 @@ class ViewCreateur{
         <h2><u>Créer une nouvelle liste</u></h2>
         <section class="formulaire-liste">
             <p><b><u>Formulaire de création d'une nouvelle liste :</u></b></p>
-            <form id="" method="POST" action="{$vars['basepath']}/compte/{$numCompte}?token={$t}">
+            <form id="" method="POST" action="">
                     <label>Titre : </label>
                     <br>
                     <br>
@@ -385,7 +390,7 @@ class ViewCreateur{
                     <input type="date" name="dat" value="" placeholder="La date" required>
                     <br>
                     <br>
-                    <button type="submit" name="val" value="OK">Créer liste</button>
+                    <button type="submit" name="bouton_creationListe" value="">Créer liste</button>
                 </form>
         </section>
         END;
