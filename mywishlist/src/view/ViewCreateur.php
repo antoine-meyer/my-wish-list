@@ -265,11 +265,11 @@ class ViewCreateur{
             <p>Remplisser ce formulaire pour modifier les informations générales de l'item :</p>
             <section class="">
                 <form id="" method="POST" action="">
-                    <input type="" name="" value="" placeholder="Nouveau nom"><br>
-                    <input type="" name="" value="" placeholder="Nouvelle description"><br>
-                    <input type="" name="" value="" placeholder="Nouveau prix"><br>
-                    <input type="" name="" value="" placeholder="Nouvelle URL externe"><br>
-                    <button type="submit" name="" value="">Modifier</button>
+                    <input type="text" name="new_name" value="" placeholder="Nouveau nom"><br>
+                    <input type="text" name="new_description" value="" placeholder="Nouvelle description"><br>
+                    <input type="number" name="new_prix" value="" placeholder="Nouveau prix"><br>
+                    <input type="url" name="new_url" value="" placeholder="Nouvelle URL externe"><br>
+                    <button type="submit" name="bouton_modifierItem" value="">Modifier</button>
                 </form>
             </section>
         END;

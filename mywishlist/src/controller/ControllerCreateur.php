@@ -89,10 +89,50 @@ class ControllerCreateur {
         if($rq->getParsedBody()['bouton_modifierImage'] === ""){
             $rs = $this->gestionModifierImageItem($rq, $rs, $args);
         }
-
-        
+        //formulaire pour modifier les informations de l'item
+        if($rq->getParsedBody()['bouton_modifierItem'] === ""){
+            $rs = $this->gestionModifierInformationsItem($rq, $rs, $args);
+        }
         //renvoi du résultat final
         return $rs; 
+    }
+
+
+
+    public function gestionModifierInformationsItem($rq, $rs, $args){
+        
+        //on récupère les informations dans les champs
+        $nom = $rq->getParsedBody()['new_name'];
+        $des = $rq->getParsedBody()['new_description'];
+        $pri = $rq->getParsedBody()['new_prix'];
+        $url = $rq->getParsedBody()['new_url'];
+
+        //filtrer new_name, new_description et new_url
+        $nomFiltre = filter_var($nom, FILTER_SANITIZE_STRING);
+        $desFiltre = filter_var($des, FILTER_SANITIZE_STRING);
+        $urlFiltre = filter_var($url, FILTER_SANITIZE_STRING);
+
+        //on récupère l'item
+        $item = Item::where('id','=', $args['id'])->firstOrFail();
+
+        //insertion
+        if($nomFiltre !== ""){
+            $item->nom = $nomFiltre;
+        }
+        if($desFiltre !== ""){
+            $item->descr = $desFiltre;
+        }
+        if($pri !== "" && $pri > 0){
+            $item->tarif = $pri;
+        }
+        if($urlFiltre !== ""){
+            $item->url = $urlFiltre;
+        }
+        //sauvegarde
+        $item->save();
+        //renvoie de la vue
+        $rs = $this->getItemCreateur($rq, $rs, $args);
+        return $rs;
     }
 
 

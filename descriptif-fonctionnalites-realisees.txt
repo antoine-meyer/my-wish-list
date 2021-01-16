@@ -2,12 +2,20 @@ Descriptif des fonctionnalités réalisées :
 
 Partie Participant :
 
+1 - 
+
+
 
 
 Partie Créateur :
+
+1 - 
+
 
 
 
 Extensions, fonctionnalités optionnelles et bonus :
 
+1 - sur une page du type /mywishlist/createurs/items/35?token=X, il y a un bouton retour vers la liste associée à l'item courant mais aussi un bouton retour vers le compte associée à la liste qui contient l'item courant
 
+2 - 
