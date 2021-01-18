@@ -1,0 +1,53 @@
+/*
+tous les éléments de la page
+*/
+html{
+    background-color: #333;
+    color: #fff;
+}
+/*
+on centre des textes et on met en majuscule
+*/
+h1, h2 {
+    text-transform: uppercase;
+    text-align: center;
+}
+/*
+on centre les h3
+*/
+h3{
+    text-align: center;
+}
+/*
+le formulaire
+*/
+/*form{}*/
+/*
+formulaire d'authentification de la page createur
+*/
+.formuCrea{
+    width: 500px;
+    margin: 0 auto;
+}
+/*
+champs a remplir
+*/
+.cham{
+    width: 100%;
+    margin-bottom: 10px;
+}
+/*
+le bouton de soumission
+*/
+.sub{
+    display: block;
+    margin: auto;
+}
+/*
+gestion des liens 
+*/
+a{
+    text-decoration: none;
+    /*color: #fff;*/
+    color: yellow;
+}

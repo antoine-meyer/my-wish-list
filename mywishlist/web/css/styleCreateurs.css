@@ -6,7 +6,7 @@ html{
     color: #fff;
 }
 /*
-on centre des textes
+on centre des textes et on met en majuscule
 */
 h1, h2 {
     text-transform: uppercase;

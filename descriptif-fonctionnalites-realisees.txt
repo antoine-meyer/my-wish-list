@@ -20,4 +20,6 @@ Extensions, fonctionnalités optionnelles et bonus :
 
 2 - sur une page du type /mywishlist/createurs/liste/1?token=X, il y a le bouton supprimer la liste qui permet de supprimer la liste courante et de revenir à l'aperçu du compte
 
+3 - il est bon de noter, pour la suite, que la page d'accueil de notre application se trouve à une URL du type /mywishlist/createurs/. La fonctionnalité '21 Afficher les listes de souhaits publiques' est visible sur la page d'accueil de notre application
 
+4 - 
