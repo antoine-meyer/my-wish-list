@@ -105,6 +105,29 @@ class ViewCreateur{
                 $c = "";
                 if($i->reserve === 1){
                     $c = "<p>L'item est <b>réservé</b> : vous ne pouvez plus le modifier ni le supprimer.</p>";
+
+                    //on regarde si la date échéance est passée
+                    //si oui on affiche le nom du mec qui a réservé et le message associé à la réservation
+                    $dateEcheance = $liste->expiration;
+                    $dateActuelle = $today = date('Y-m-j');
+                    //différence de temps : si on entre dans la boucle alors date passée
+                    if($dateEcheance < $dateActuelle){
+                        //si on est là alors on affiche le nom du réserveur et son message
+                        $c = $c . <<<END
+                        <p> &nbsp &nbsp &nbsp &nbsp <b>Nom :</b> {$i->participant}</p>
+                        
+                        END;
+                        //on regarde si on a un message ou non
+                        if($i->messageReservation !== NULL){
+                            $c = $c . <<<END
+                                <p> &nbsp &nbsp &nbsp &nbsp <b>Message associé :</b> {$i->messageReservation}</p>
+                            END;
+                        }else{
+                            $c = $c . <<<END
+                                <p> &nbsp &nbsp &nbsp &nbsp <b>Message associé :</b> aucun message</p>
+                            END; 
+                        }
+                    }
                 }else{
                     $c = $c . <<<END
                         <p>L'item n'est <b>pas encore réservé</b> !</p>
@@ -119,6 +142,8 @@ class ViewCreateur{
                         </form>
                     END;
                 }
+
+            
                 //on assemble le tout 
                 $a = $a . <<<END
                     $c
