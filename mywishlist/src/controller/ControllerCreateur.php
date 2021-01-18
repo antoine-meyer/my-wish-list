@@ -217,6 +217,17 @@ class ControllerCreateur {
             //on renvoie la vue
             $rs = $this->getListeCreateur($rq, $rs, $args);
         }
+        //formalaire pour rendre une liste publique 
+        if(gettype($rq->getParsedBody()['bouton_partagerListePublique']) === "string"){
+            //on récupère la liste
+            $modifListe = Liste::where('no','=', $args['no'])->firstOrFail();
+            $modifListe->publique = 1;
+            $modifListe->save();
+            //renvoie de la vue
+            $rs = $this->getListeCreateur($rq, $rs, $args);
+            return $rs;
+        }
+        
         //renvoi du résultat final
         return $rs;       
     }

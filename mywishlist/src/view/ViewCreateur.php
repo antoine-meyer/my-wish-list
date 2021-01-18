@@ -186,11 +186,23 @@ class ViewCreateur{
             <h2><u>Partager cette liste</u></h2>
         END;
         if($liste->token !== NULL){
-            $a = $a . <<<END
-                <p>Liste déjà partagée !</p>
+            if($liste->publique !== 1){
+                $a = $a . <<<END
+                    <p>Liste déjà partagée !</p>
+                    <p>Allez voir cette URL : {$_SERVER['HTTP_HOST']}/mywishlist/participants/liste?token={$liste->token}</p>
+                    <!--<button type="" name="" value="" >Ne plus partager la liste</button>-->
+                    <p>Rendre cette liste publique ?</p>
+                    <form id="" method="POST" action="">
+                        <button type="submit" name="bouton_partagerListePublique" value="" >Rendre la liste publique</button>
+                    </form>
+                END;
+            }else{
+                $a = $a . <<<END
+                <p>Liste déjà partagée et déjà publique.</p>
                 <p>Allez voir cette URL : {$_SERVER['HTTP_HOST']}/mywishlist/participants/liste?token={$liste->token}</p>
-                <!--<button type="" name="" value="" >Ne plus partager la liste</button>-->
-            END;
+                END;
+            }
+            
         }else{
             $a = $a . <<<END
                 <p>Cette liste n'est pas encore partagée ... Voulez vous le faire ?</p>
