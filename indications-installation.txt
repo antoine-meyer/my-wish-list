@@ -4,7 +4,7 @@ Indications permettant l'installation du projet sur une machine quelconque :
 
 2 - aller dans votre gestionnaire de base de donnée (MySql, Adminer ou autres), choisir une BDD dans laquelle vous voulez créer les tables et que vous voulez utiliser pour l'exécution du projet (retenir le nom de cette base pour la suite)
 
-3 - exécuter le code contenu dans le fichier donnees.txt (ce fichier contient tout les requêtes SQL pour créer les tables et insérer les données utilent à la bonne visualisation du projet) dans la base choisie en étape 2
+3 - exécuter le code contenu dans les fichiers donnees-create.txt, donnees-insert.txt et éventuellement donnees-drop.txt (ces fichiers contiennent toutes les requêtes SQL pour créer les tables et insérer les données utilent à la bonne visualisation du projet) dans la base choisie en étape 2
 
 4 - la connection a la base de données se fait de manière automatique : vous devez néanmoins renseigner vos informations privées concernant la BDD
 

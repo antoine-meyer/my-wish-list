@@ -1,0 +1,51 @@
+COPIE COLLE LA SUITE POUR CREER LES TABLES ET INSERER LES DONNES UTILENT AU BON FONCTIONNEMENT DU PROJET MY-WISH-LIST :
+
+//CREATION DES TABLES
+
+CREATE TABLE `commentairesListes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `liste_id` int NOT NULL,
+  `message` text NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `compte` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` text,
+  `tokenmodification` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'c''est plutot le token de vérification de l''utilisateur connecté. Le vrai token modification est dans la table LISTE.',
+  `hash` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `item` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `liste_id` int NOT NULL,
+  `nom` text NOT NULL,
+  `descr` text,
+  `img` text,
+  `url` text,
+  `tarif` decimal(5,2) DEFAULT NULL,
+  `reserve` tinyint NOT NULL DEFAULT '0' COMMENT '0 : non réservé et 1 : réservé',
+  `participant` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT 'nom du participant que si réservé vaut 1',
+  `messageReservation` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `liste` (
+  `no` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `titre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `expiration` date DEFAULT NULL,
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'si token existe alors la liste est publique !',
+  `tokenDeModification` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'token pour permettre aux créateurs de modifier la liste. Il est différent de token tout court !',
+  `publique` int DEFAULT NULL COMMENT 'si NULL non publique; si 1 publique',
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+

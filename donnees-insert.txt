@@ -1,0 +1,75 @@
+COPIE COLLE LA SUITE POUR CREER LES TABLES ET INSERER LES DONNES UTILENT AU BON FONCTIONNEMENT DU PROJET MY-WISH-LIST :
+
+//INSERTION DES DONNEES
+
+INSERT INTO `commentairesListes` (`id`, `liste_id`, `message`, `date`) VALUES
+(1,	1,	'Salut c\'est un message test',	'2020-11-27'),
+(2,	2,	'Yo les amis !',	'2020-12-27'),
+(3,	1,	'Salut coucou les zouzous :/',	'2020-12-27'),
+(4,	1,	'Salut&#39;+{-(}',	'2021-01-05'),
+(5,	1,	'S',	'2021-01-05'),
+(6,	1,	'Messagede11-31',	'2021-01-05'),
+(7,	1,	'Messagede11-32',	'2021-01-05'),
+(8,	1,	'sasas',	'2021-01-05'),
+(9,	1,	'Message11-34',	'2021-01-05'),
+(10,	2,	'Messagede5janviera11-39',	'2021-01-05'),
+(11,	2,	'Message de 20:54',	'2021-01-06'),
+(12,	1,	' ',	'2021-01-06'),
+(13,	2,	'Test',	'2021-01-09'),
+(14,	1,	'',	'2021-01-19'),
+(15,	1,	'',	'2021-01-19');
+
+
+
+INSERT INTO `compte` (`id`, `nom`, `tokenmodification`, `hash`) VALUES
+(1,	'Meyer',	'1b25efb3affa4de7a5f5',	'$2y$10$GW/M0A0SSoHJx7wYy6SXcuCRI4fn8sTH7xEym6lT6BgQ99CIDAxkS'),
+(2,	'Thierry',	'252f2d739918eca76874',	'$2y$10$nOZ/ua0UsUU6EFaB6B4r3eH5gJOxvlmVdIJUjavl18H/B/LuknMLC'),
+(3,	'Paul',	'7a3b8d82e8fa51a05868',	'$2y$10$ejhunOBuE8RswisKmeRwEu41LU8RHf5TVu9OUVvggZ67KXEhrfPyq'),
+(4,	'NomSuperLongPourVoirUnPeu',	'4582d867b74aef428d46',	'$2y$10$I/zUtlHSJFcObHHvKqFXTOlPgQPM/BwlMszErY06JO51CRlqL1zTi'),
+(5,	'Gus Sans Liste',	'741ff9541775a04e7874',	'$2y$10$5kQY0NAp2FTMzMGUGzVFOe19roqoHCcd7bwDLbddR3iWCaOq6kdeu'),
+(8,	'Antoine',	'9189379c16cd850f4cb8',	'$2y$10$JAG3a8Z1Xyj2lDnMPuWGHO3kvclrSoJAK0spG/pvk63AGp2Cf4XfG');
+
+
+INSERT INTO `item` (`id`, `liste_id`, `nom`, `descr`, `img`, `url`, `tarif`, `reserve`, `participant`, `messageReservation`) VALUES
+(1,	2,	'Champagne',	'Bouteille de champagne + flutes + jeux à gratter',	'champagne.jpg',	NULL,	20.00,	1,	'Meyer',	NULL),
+(2,	2,	'Musique',	'Partitions de piano à 4 mains',	'musique.jpg',	NULL,	25.00,	1,	'Paul',	'Salut c\'est Paul ! Je t\'offre ce super cadeau.'),
+(3,	2,	'Exposition',	'Visite guidée de l’exposition ‘REGARDER’ à la galerie Poirel',	'poirelregarder.jpg',	NULL,	14.00,	0,	NULL,	NULL),
+(4,	3,	'Goûter',	'Goûter au FIFNL',	'gouter.jpg',	NULL,	20.00,	0,	NULL,	NULL),
+(5,	3,	'Projection',	'Projection courts-métrages au FIFNL',	'film.jpg',	NULL,	10.00,	0,	NULL,	NULL),
+(6,	2,	'Bouquet',	'Bouquet de roses et Mots de Marion Renaud',	'rose.jpg',	NULL,	16.00,	0,	NULL,	NULL),
+(7,	2,	'Diner Stanislas',	'Diner à La Table du Bon Roi Stanislas (Apéritif /Entrée / Plat / Vin / Dessert / Café / Digestif)',	'bonroi.jpg',	NULL,	60.00,	0,	NULL,	NULL),
+(8,	3,	'Origami',	'Baguettes magiques en Origami en buvant un thé',	'origami.jpg',	NULL,	12.00,	0,	NULL,	NULL),
+(9,	3,	'Livres',	'Livre bricolage avec petits-enfants + Roman',	'bricolage.jpg',	NULL,	24.00,	0,	NULL,	NULL),
+(10,	2,	'Diner  Grand Rue ',	'Diner au Grand’Ru(e) (Apéritif / Entrée / Plat / Vin / Dessert / Café)',	'grandrue.jpg',	NULL,	59.00,	0,	NULL,	NULL),
+(11,	0,	'Visite guidée',	'Visite guidée personnalisée de Saint-Epvre jusqu’à Stanislas',	'place.jpg',	NULL,	11.00,	0,	NULL,	NULL),
+(12,	2,	'Bijoux',	'Bijoux de manteau + Sous-verre pochette de disque + Lait après-soleil',	'bijoux.jpg',	NULL,	29.00,	0,	NULL,	NULL),
+(19,	0,	'Jeu contacts',	'Jeu pour échange de contacts',	'contact.png',	NULL,	5.00,	0,	NULL,	NULL),
+(22,	0,	'Concert',	'Un concert à Nancy',	'concert.jpg',	NULL,	17.00,	0,	NULL,	NULL),
+(23,	4,	'Appart Hotel',	'Appart’hôtel Coeur de Ville, en plein centre-ville',	'apparthotel.jpg',	NULL,	56.00,	0,	NULL,	NULL),
+(24,	2,	'Hôtel d\'Haussonville',	'Hôtel d\'Haussonville, au coeur de la Vieille ville à deux pas de la place Stanislas',	'hotel_haussonville_logo.jpg',	NULL,	169.00,	0,	NULL,	NULL),
+(25,	1,	'Boite de nuit',	'Discothèque, Boîte tendance avec des soirées à thème & DJ invités',	'boitedenuit.jpg',	NULL,	32.00,	1,	'Frederic',	NULL),
+(26,	1,	'Planètes Laser',	'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.',	'laser.jpg',	NULL,	15.00,	0,	NULL,	NULL),
+(27,	1,	'Fort Aventure',	'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l\'élastique inversé, Toboggan géant... et bien plus encore.',	'fort.jpg',	NULL,	25.00,	1,	'Polo',	'On va s\'éclater !'),
+(34,	2,	'test',	'Dezcription test',	NULL,	NULL,	0.00,	0,	NULL,	NULL),
+(35,	1,	'azeazezaeae',	'New description',	NULL,	'https://www.google.com/',	6.00,	0,	NULL,	NULL),
+(44,	1,	'SUper Item de florian',	'b',	NULL,	'http://oui.com',	5.00,	0,	NULL,	NULL),
+(47,	13,	'a',	'a',	NULL,	NULL,	2.00,	0,	NULL,	NULL),
+(49,	11,	'Item 4',	'je suis 4',	NULL,	NULL,	5.00,	1,	'ANtoine',	'Je reserve le 4');
+
+
+INSERT INTO `liste` (`no`, `user_id`, `titre`, `description`, `expiration`, `token`, `tokenDeModification`, `publique`) VALUES
+(1,	1,	'Pour fêter le bac !',	'Nouvelle description',	'2021-01-13',	'fe62d30eeb83ac023f99',	'd6d9c352810f4e175726',	1),
+(2,	2,	'Liste de mariage d\'Alice et Bob',	'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)',	'2018-06-30',	'dec3232e8b6f28a3bafa',	'5ee7ee98f5661a6666e5',	NULL),
+(3,	3,	'C\'est l\'anniversaire de Charlie',	'Pour lui préparer une fête dont il se souviendra :)',	'2017-12-12',	'5de61bdc4a755d767ea4',	'7cac34fd28b8e84c8900',	NULL),
+(4,	2,	'Super liste !',	'Une liste vraiment superbe quoi. Rien de plus à dire ...',	'2021-02-23',	'af633cec790303ceb582',	'73a988b65f6bfb8413a9',	1),
+(5,	4,	'Liste du créateur 2',	'Super liste d\'items par le créateur numéro 2 oui oui !',	'2021-01-12',	NULL,	'8f7d840c1baf49dccef9',	NULL),
+(6,	2,	'Nouvel liste blabla',	'Super liste avec un token un peu rigolo mais tout cela c&#39;est pour le test',	'2021-02-21',	NULL,	'cb4b053b81abf4e36e08',	NULL),
+(7,	2,	'Super liste avec vrai token',	'Oui enfin ! Super token de modification !',	'2021-01-12',	NULL,	'c0fe3b832053338bf33d',	NULL),
+(10,	2,	'Super liste avec vrai token',	'Oui enfin ! Super token de modification !',	'2021-01-12',	NULL,	'013b63620a69411f38f3',	NULL),
+(11,	1,	'Nouveau titre plus',	'New desc',	'2021-01-19',	'af8512662218c9a1a0d6',	'0560ae79a8a07500a4d0',	NULL),
+(13,	1,	'Super liste de chaussures',	'TOutes les chaussures de mes rêves',	'2021-01-19',	NULL,	'd829094015e97ab74721',	NULL);
+
+
+
+
+
