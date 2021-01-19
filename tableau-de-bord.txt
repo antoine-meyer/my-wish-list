@@ -1,1 +1,37 @@
 Tableau de bord du projet : 
+
+|----------------------|----------------------|------------------------------|------------------------------|
+|	Antoine Meyer	|	Léo Gross	|	Florian Grimmer	|	Hugo Etchevarne	| 
+|----------------------|----------------------|------------------------------|------------------------------|
+| 1 (sans cookies)	|			|				|				|
+| 2 (sans cookies)	|			|				|				|
+| 3 (sans session)	|			|				|				|
+| 	4		|			|				|				|
+|	5		|			|				|				|
+|	6		|			|				|				|
+|	7		|			|				|				|
+|	8		|			|				|				|
+|	9		|			|				|				|
+|	10		|			|				|				|
+|	11		|			|				|				|
+|	12		|			|				|				|
+|	13		|			|				|				|
+|	14		|			|				|				|
+| 15 (sans cookies)	|			|				|				|
+|	16		|			|				|				|
+|	17		|			|				|				|
+| 18 (sans session)	|			|				|				|
+|	20		|			|				|				|
+| 21 (sans le tri)	|			|				|				|
+|	bonus 1*	|			|				|				|
+|	bonus 2*	|			|				|				|
+|	bonus 3*	|			|				|				|
+|	bonus 4*	|			|				|				|
+|	bonus 5*	|			|				|				|
+|	bonus 6*	|			|				|				|
+|----------------------|----------------------|------------------------------|------------------------------|
+
+*bonus x = voir le fichier descriptif-fonctionnalites-realisees.txt pour comprendre en quoi consiste les
+tâches que j'ai nommé 'bonus'
+
+

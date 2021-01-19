@@ -1,23 +1,60 @@
 Descriptif des fonctionnalités réalisées :
 
-Partie Participant :
-
-1 - 
 
 
+Partie Participant : 5/5
+
+1 - La fonctionnalité '1 Afficher une liste de souhaits' a été réalisé mais sans la gestion des cookies
+
+2 - La fonctionnalité '2 Afficher un item d'une liste' a été réalisé mais sans la gestion des cookies
+
+3 - La fonctionnalité '3 Réserver un item' a été réalisé mais sans la gestion de la variable de session pour pré-remplir le champ
+
+4 - La fonctionnalité '4 Ajouter un message avec sa réservation' a été réalisé en totalité
+
+5 - La fonctionnalité '5 Ajouter un message sur une liste' a été réalisé en totalité
 
 
-Partie Créateur :
 
-1 - 
+Partie Créateur : 11/11
 
+1 - La fonctionnalité '6 Créer une liste' a été réalisé en totalité
 
+2 - La fonctionnalité '7 Modifier les informations générales d'une de ses listes' a été réalisé en totalité
+
+3 - La fonctionnalité '8 Ajouter des items' a été réalisé en totalité
+
+4 - La fonctionnalité '9 Modifier un item' a été réalisé en totalité
  
+5 - La fonctionnalité '10 Supprimer un item' a été réalisé en totalité
+
+6 - La fonctionnalité '11 Rajouter une image à un item' a été réalisé en totalité
+
+7 - La fonctionnalité '12 Modifier une image d'un item' a été réalisé en totalité
+
+8 - La fonctionnalité '13 Supprimer une image d'un item' a été réalisé en totalité
+
+9 - La fonctionnalité '14 Partager une liste' a été réalisé en totalité
+
+10 - La fonctionnalité '15 Consulter les réservations d'une de ses listes avant échéance' a été réalisé mais sans la gestion des cookies
+
+11 - La fonctionnalité '16 Consulter les réservations et messages d'une de ses listes après échéance' a été réalisé en totalité
 
 
 
+Extensions, fonctionnalités optionnelles : 4/12
 
-Extensions, fonctionnalités optionnelles et bonus :
+1 - La fonctionnalité '17 Créer un compte' a été réalisé en totalité
+
+2 - La fonctionnalité '18 S'authentifier' a été réalisé mais la variable de session qui permet de maintenir l'état authentifié n'a pas été géré
+
+3 - La fonctionnalité '20 Rendre une liste publique' a été réalisé en totalité
+
+4 - La fonctionnalité '21 Affichier les listes de souhaits publiques' a été réalisé mais les listes ne sont pas triées par date d'expiration croissante 
+
+
+
+Bonus : 6/x
 
 1 - sur une page du type /mywishlist/createurs/items/35?token=X, il y a un bouton retour vers la liste associée à l'item courant mais aussi un bouton retour vers le compte associée à la liste qui contient l'item courant
 
@@ -25,12 +62,27 @@ Extensions, fonctionnalités optionnelles et bonus :
 
 3 - il est bon de noter, pour la suite, que la page d'accueil de notre application se trouve à une URL du type /mywishlist/createurs/. La fonctionnalité '21 Afficher les listes de souhaits publiques' est visible sur la page d'accueil de notre application
 
-4 - sur une page du type /mywishlist/createurs/liste/1?token=X, il y a, tout en bas, le bouton 'Rendre la liste publique' qui permet, si la liste est déjà partagée, de rendre la liste visible à tout (cette extension correspond au numéro '20 Rendre une liste publique'
+4 - sur une page du type /mywishlist/createurs/liste/1?token=X, il y a, tout en bas, le bouton 'Rendre la liste publique' qui permet, si la liste est déjà partagée, de rendre la liste visible à tout (cette extension correspond au numéro '20 Rendre une liste publique')
 
 5 - sur la page de compte d'un créateur de listes, il y a tout en haut un bouton pour se déconnecter et retourner à l'accueil de l'application
 
 6 - sur la page d'un participant, j'ai ajouté un bouton pour revenir à l'accueil ainsi on a un meilleur lien entre les 2 parties de l'application et cela est plus pratique pour l'utilisateur
 
+
+
+Résumé des fonctionnalités du projet : 3 entières + 3 demis / 6 cas d'utilisation
+
+- Le cas d'utilisation 'Gestion des items (8, 9, 10)' a été réalisé en entier
+
+- Le cas d'utilisation 'Gestion des messages (4, 5, 16)' a été réalisé en entier
+
+- Le cas d'utilisation 'Gestion des listes (6, 7, 20, 21)' a été réalisé en entier
+
+- Le cas d'utilisation 'Participation à une liste' a été réalisé mais il manque la 22 et 23
+
+- Le cas d'utilisation 'Gestion des images' a été réalisé mais il manque la 24
+
+- Le cas d'utilisation 'Gestion des comptes' a été réalisé grâce à 17 et 18
 
 
 

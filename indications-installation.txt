@@ -30,9 +30,11 @@ Indications permettant l'installation du projet sur une machine quelconque :
 	
 10 - rendez ensuite dans votre navigateur préférée aux url :
 
-	pour un participant = http://localhost:8000/mywishlist/participants/liste?token=nosecure1
+	pour un participant = http://localhost:8000/mywishlist/participants/liste?token=XXX
 	
-	pour un créateur = http://localhost:8000/mywishlist/createurs/compte/1?token=tokenModif1
+	pour un créateur = http://localhost:8000/mywishlist/createurs/compte/1?token=XXX
+	
+	pour l'accueil = 
 	
 11 - vous avez normalement sous vos yeux le projet qui fonctionne bien ! 
 	
