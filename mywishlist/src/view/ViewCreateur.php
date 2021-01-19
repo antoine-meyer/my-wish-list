@@ -356,8 +356,14 @@ class ViewCreateur{
     public function renderListes(array $vars){
         //on recupere les listes
         $listes = $this->model[1];
+        //bouton déconnexion
+        $a = <<<END
+        <form id="" method="POST" action="">
+            <button type="submit" name="bouton_deco" value="">Déconnexion</button>
+        </form>
+        END;
         //information sur le createur
-        $a = "<h2><u>Vos informations</u></h2>";
+        $a = $a . "<h2><u>Vos informations</u></h2>";
         $a = $a . "<p>Vous êtes <b>{$this->model[0]->nom}</b></p>";
         $a = $a . "<p>Votre mot de passe est <b>{$this->model[0]->password}</b></p>";
         $nbr_liste = count($listes);

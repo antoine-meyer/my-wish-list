@@ -27,4 +27,7 @@ Extensions, fonctionnalités optionnelles et bonus :
 
 4 - sur une page du type /mywishlist/createurs/liste/1?token=X, il y a, tout en bas, le bouton 'Rendre la liste publique' qui permet, si la liste est déjà partagée, de rendre la liste visible à tout (cette extension correspond au numéro '20 Rendre une liste publique'
 
-5 - 
+5 - sur la page de compte d'un créateur de listes, il y a tout en haut un bouton pour se déconnecter et retourner à l'accueil de l'application
+
+
+

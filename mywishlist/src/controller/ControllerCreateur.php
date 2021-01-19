@@ -28,11 +28,6 @@ class ControllerCreateur {
 
     public function getCompteCreateur($rq, $rs, $args){
         try{
-
-            //il faut la présence d'une variable de session
-            var_dump($_SESSION);
-
-
             //on recupere le chemin de base
             $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
             //on recupere le token de modification
@@ -185,6 +180,10 @@ class ControllerCreateur {
         if($rq->getParsedBody()['bouton_creationListe'] === ""){
             //print("creation liste");
             $rs = $this->forCreationNewListe($rq, $rs, $args);
+        }
+        //bouton pour se déconnecter
+        if($rq->getParsedBody()['bouton_deco'] === ""){
+            return $rs->withRedirect("/mywishlist/createurs/");
         }
         //renvoi du résultat final
         return $rs; 

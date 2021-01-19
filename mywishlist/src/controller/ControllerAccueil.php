@@ -69,9 +69,9 @@ class ControllerAccueil {
             if($compte->password === $mdpFiltre){
                 //bon mot de passe !
                 //on crée une session
-                session_start();
+                //session_start();
                 //on met le nom du compte dans une variable de session
-                $_SESSION['id_compte_actif'] = $compte->id;
+                //$_SESSION['id_compte_actif'] = $compte->id;
                 //on récupère l'id du compte
                 $i = $compte->id;
                 //on récupère le token du compte

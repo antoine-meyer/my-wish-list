@@ -33,6 +33,9 @@ class ViewParticipant{
             <body>
                 <h1>Application Wishlist</h1>
                 <h2><u>Participants</u></h2>
+                <form id="" method="" action="/mywishlist/createurs/">
+                    <button type="submit" name="" value="">Retour accueil</button>
+                </form>
                 $content
                 <h2>Fin de la page</h2>
             </body>
