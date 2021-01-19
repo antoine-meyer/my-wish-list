@@ -37,6 +37,11 @@ $app->get('/items/{id}', function(Request $rq, Response $rs, array $args): Respo
 
 
 //post
+$app->post('[/]', function(Request $rq, Response $rs, array $args): Response {
+    $c = new mywishlist\controller\ControllerAccueil($this);
+    return $c->postConnectionAccueil($rq, $rs, $args);
+});
+
 $app->post('/compte/{userid}', function(Request $rq, Response $rs, array $args): Response {
     $c = new mywishlist\controller\ControllerCreateur($this);
     return $c->postCompte($rq, $rs, $args);

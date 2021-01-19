@@ -28,6 +28,11 @@ class ControllerCreateur {
 
     public function getCompteCreateur($rq, $rs, $args){
         try{
+
+            //il faut la présence d'une variable de session
+            var_dump($_SESSION);
+
+
             //on recupere le chemin de base
             $htmlvars = ['basepath'=>$rq->getUri()->getBasePath()];
             //on recupere le token de modification

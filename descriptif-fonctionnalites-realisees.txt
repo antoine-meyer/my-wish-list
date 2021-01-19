@@ -12,6 +12,9 @@ Partie Créateur :
 1 - 
 
 
+ 
+
+
 
 
 Extensions, fonctionnalités optionnelles et bonus :
@@ -22,4 +25,6 @@ Extensions, fonctionnalités optionnelles et bonus :
 
 3 - il est bon de noter, pour la suite, que la page d'accueil de notre application se trouve à une URL du type /mywishlist/createurs/. La fonctionnalité '21 Afficher les listes de souhaits publiques' est visible sur la page d'accueil de notre application
 
-4 - 
+4 - sur une page du type /mywishlist/createurs/liste/1?token=X, il y a, tout en bas, le bouton 'Rendre la liste publique' qui permet, si la liste est déjà partagée, de rendre la liste visible à tout (cette extension correspond au numéro '20 Rendre une liste publique'
+
+5 - 

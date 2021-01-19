@@ -23,17 +23,17 @@ class ViewAccueil{
             <h1>Application Wishlist</h1>
             <h2><u>PAGE D'accueil</u></h2>
             <h3><u>Identification pour les créateurs de listes</u></h3>
-            <form method='get' class='formuCrea' action=''>
+            <form method='post' class='formuCrea' action=''>
                 <div class=''>
                     <div class=''>
-                        <input class='cham' title='E-mail ou identifiant' maxlength='320' type='text' placeholder='E-mail ou identifiant' autocorrect='off' spellcheck='false'>
+                        <input class='cham' name="identifiant" title='Identifiant' maxlength='320' type='text' placeholder='Identifiant' autocorrect='off' spellcheck='false' required>
                     </div>
                     <div class=''>
-                        <input class='cham' title='Mdp' maxlength='320' type='password' placeholder='Mot de passe'>
+                        <input class='cham' name="mot_de_passe" title='Mdp' maxlength='320' type='password' placeholder='Mot de passe' required>
                     </div>
                 </div>
                 <div class=''>    
-                    <button class='sub' type='submit'>Se connecter</button>
+                    <button class='sub' name="bouton_connectionCreateur" type='submit'>Se connecter</button>
                 </div>
             </form>
             <h3><u>Créer un compte de créateur de listes</u></h3>
