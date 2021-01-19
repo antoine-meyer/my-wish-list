@@ -68,17 +68,29 @@ class ControllerAccueil {
         $mdp = filter_var($mdp, FILTER_SANITIZE_STRING);
         $mdpConfir = filter_var($mdpConfir, FILTER_SANITIZE_STRING);
 
-        //EN TRAVAUX
-        /*print("id:".$ide."-mdp:".$mdp."-mdpConf:".$mdpConfir."<br>");
-        $hash=password_hash($mdp, PASSWORD_DEFAULT);
-        print($hash);
-        print("<br>");
-        //$mdp = "bue";
-        print( password_verify($mdp, $hash) );
-        *///
-
+        //on regarde en dur si les deux champs entres sont les memes
+        if($mdp === $mdpConfir){
+            //on génère le hash
+            $hash=password_hash($mdp, PASSWORD_DEFAULT);
+            //on crée un compte
+            $c = new \mywishlist\models\Compte;
+            $c->nom = $ide;
+            $c->hash = $hash;
+            //on génère un token de modification
+            $tok = random_bytes(10);
+            $tok = bin2hex($tok);
+            $c->tokenmodification = $tok;
+            //on sauvegarde
+            $c->save();
+            //on renvoie la vue
+            $rs = $this->testAccueil($rq, $rs, $args);
+        }else{
+            //pas les memes mdp donc message erreur
+            $rs->getBody()->write("<p style='color:red;'>Problème création : pas les mêmes mots de passe entrés.</p>");
+            //on récupère la vue de l'accueil normal
+            $rs = $this->testAccueil($rq, $rs, $args);
+        }
         //on renvoi la vue
-        $rs->getBody()->write("");
         return $rs;
     }
 

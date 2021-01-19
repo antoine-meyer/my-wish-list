@@ -58,17 +58,23 @@ class ViewAccueil{
         END;
         //on parcours toutes les listes publiques et on affiche leur titre
         foreach($l as $li){
-            $html = $html . <<<END
-                <a href='/mywishlist/participants/liste?token={$li->token}'><u>Titre :</u> {$li->titre} - <u>Expiration :</u> {$li->expiration}</a>
-                <br><br>
-            END;
+            //on affiche pas les listes expirées
+            $dateEcheance = $li->expiration;
+            $dateActuelle = date('Y-m-j');
+            //différence de temps : si on entre dans la boucle alors date passée
+            if($dateEcheance >= $dateActuelle){
+                $html = $html . <<<END
+                    <a href='/mywishlist/participants/liste?token={$li->token}'><u>Titre :</u> {$li->titre} - <u>Expiration :</u> {$li->expiration}</a>
+                    <br><br>
+                END;
+            }
         }
 
         //gestion de la liste des créateurs 
-        $html = $html . <<<END
+        /*$html = $html . <<<END
             <h3><u>Liste des créateurs</u></h3>
             <p>A..</p>
-        END;
+        END;*/
         
         
         //fin de la page
