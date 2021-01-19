@@ -365,7 +365,7 @@ class ViewCreateur{
         //information sur le createur
         $a = $a . "<h2><u>Vos informations</u></h2>";
         $a = $a . "<p>Vous êtes <b>{$this->model[0]->nom}</b></p>";
-        $a = $a . "<p>Votre mot de passe est <b>{$this->model[0]->password}</b></p>";
+        //$a = $a . "<p>Votre mot de passe est <b>{$this->model[0]->hash}</b></p>";
         $nbr_liste = count($listes);
         $a = $a . "<p>Vous avez <b>{$nbr_liste}</b> liste(s).</p>";
 

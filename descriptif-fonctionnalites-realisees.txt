@@ -29,5 +29,8 @@ Extensions, fonctionnalités optionnelles et bonus :
 
 5 - sur la page de compte d'un créateur de listes, il y a tout en haut un bouton pour se déconnecter et retourner à l'accueil de l'application
 
+6 - sur la page d'un participant, j'ai ajouté un bouton pour revenir à l'accueil ainsi on a un meilleur lien entre les 2 parties de l'application et cela est plus pratique pour l'utilisateur
+
+
 
 

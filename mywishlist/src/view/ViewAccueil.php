@@ -23,7 +23,7 @@ class ViewAccueil{
             <h1>Application Wishlist</h1>
             <h2><u>PAGE D'accueil</u></h2>
             <h3><u>Identification pour les créateurs de listes</u></h3>
-            <form method='post' class='formuCrea' action=''>
+            <form method='post' class="formuCrea" action=''>
                 <div class=''>
                     <div class=''>
                         <input class='cham' name="identifiant" title='Identifiant' maxlength='320' type='text' placeholder='Identifiant' autocorrect='off' spellcheck='false' required>
@@ -36,8 +36,15 @@ class ViewAccueil{
                     <button class='sub' name="bouton_connectionCreateur" type='submit'>Se connecter</button>
                 </div>
             </form>
+            <br>
             <h3><u>Créer un compte de créateur de listes</u></h3>
-            <p>A..</p>
+            <form method='post' action=''>
+                <input name="newIden" type='text' placeholder='Créer un identifiant' autocorrect='off' spellcheck='false' required>
+                <input name="newMDP" type='password' placeholder='Créer un mot de passe' required>
+                <input name="newMDP_confirmation" type='password' placeholder='Confirmer votre mot de passe' required>  
+                <button name="bouton_creationDeCompte" type='submit'>Créer un compte</button>
+            </form>
+            <br>
         END;
         
         

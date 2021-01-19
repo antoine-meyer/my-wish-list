@@ -49,7 +49,36 @@ class ControllerAccueil {
         if($rq->getParsedBody()['bouton_connectionCreateur'] === ""){
             $rs = $this->effectueConnection($rq, $rs, $args);
         }
+        //formulaire pour créer un compte
+        if($rq->getParsedBody()['bouton_creationDeCompte'] === ""){
+            $rs = $this->creerUnCompte($rq, $rs, $args);
+        }
         //renvoie la vue
+        return $rs;
+    }
+
+
+    public function creerUnCompte($rq, $rs, $args){
+        //on récupère les champs
+        $ide = $rq->getParsedBody()['newIden'];
+        $mdp = $rq->getParsedBody()['newMDP'];
+        $mdpConfir = $rq->getParsedBody()['newMDP_confirmation'];
+        //filtres
+        $ide = filter_var($ide, FILTER_SANITIZE_STRING);
+        $mdp = filter_var($mdp, FILTER_SANITIZE_STRING);
+        $mdpConfir = filter_var($mdpConfir, FILTER_SANITIZE_STRING);
+
+        //EN TRAVAUX
+        /*print("id:".$ide."-mdp:".$mdp."-mdpConf:".$mdpConfir."<br>");
+        $hash=password_hash($mdp, PASSWORD_DEFAULT);
+        print($hash);
+        print("<br>");
+        //$mdp = "bue";
+        print( password_verify($mdp, $hash) );
+        *///
+
+        //on renvoi la vue
+        $rs->getBody()->write("");
         return $rs;
     }
 
@@ -64,9 +93,9 @@ class ControllerAccueil {
 
             //on regarde si le identifiant existe sinon problème
             $compte = Compte::where('nom','=', $ideFiltre)->firstOrFail();
-            
+
             //on regarde si le mot de passe entré correspond à ce compte
-            if($compte->password === $mdpFiltre){
+            if( password_verify($mdpFiltre, $compte->hash) ){
                 //bon mot de passe !
                 //on crée une session
                 //session_start();
