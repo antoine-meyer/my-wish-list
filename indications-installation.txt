@@ -34,8 +34,17 @@ Indications permettant l'installation du projet sur une machine quelconque :
 	
 	pour un créateur = http://localhost:8000/mywishlist/createurs/compte/1?token=XXX
 	
-	pour l'accueil = 
+	pour l'accueil = http://localhost:8000/mywishlist/createurs/
 	
 11 - vous avez normalement sous vos yeux le projet qui fonctionne bien ! 
 	
+12 - afin de pouvoir visionner les listes pré-créées pour voir toutes les fonctionnalités de l'application il faut se connecter en tant que créateurs : voici donc les mots de passe des comptes créateurs
+
+	Nom : Meyer				MDP : 1234
+	Nom : Thierry				MDP : oui
+	Nom : Paul				MDP : chien
+	Nom : NomSuperLongPourVoirUnPeu	MDP : lavabo 
+	Nom : Gus Sans Liste			MDP : @8_4
+	Nom : Antoine				MDP : chat
 	
+
